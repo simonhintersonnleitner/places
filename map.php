@@ -29,7 +29,7 @@ include 'template/menue.php';
 
 <div class="container">
   <div class="hero-unit">
-    <h1>alle Lieblings Orte in einer Map</h1>
+    <h1>Mapansicht</h1>
 
   </div>
   <form class="form-inline" role="form">
@@ -51,7 +51,7 @@ include 'template/menue.php';
 
 <script type="text/javascript">
 
-options = new Array(<?php echo  $count; ?>);
+options = new Array(0,1,1,1,1,1,1,1,1);
 
 for (var i = 1; i <= <?php echo  $count; ?>; i++) {
  var h = document.getElementById(i);
@@ -60,15 +60,15 @@ for (var i = 1; i <= <?php echo  $count; ?>; i++) {
 
 
 function changeCheckboxHandler() {
+
   options[this.id] = this.checked;
   //alert(this.id + " " + this.checked);
 
-  map.removeLayer(window["group"+this.id]);
+  updateMarker();
 
 }
 
 // create a map in the "map" div, set the view to a given place and zoom
-
 
 var map = L.map('map-big').setView([47.2715, 11.2489], 14);
 // add an OpenStreetMap tile layer
@@ -97,25 +97,35 @@ group<?php echo $place->category;?>[i].bindPopup('<?php echo $place->name;?><br>
 endforeach; ?>
 
 //add all marker groups to map
+function updateMarker()
+{
+  var allGroups = new Array();
+
 for (var i = 1; i <= 8; i++)
 {
     for(var x = 0; x < this["group"+i].length; x++)
     {
-     map.addLayer(this["group"+i][x]);
-     }
+      if(options[i] == 1)
+         map.addLayer(this["group"+i][x]);
+       else
+         map.removeLayer(this["group"+i][x]);
+    }
+    if(options[i] == 1)
+      allGroups = allGroups.concat(this["group"+i]);
+}
+  //set view that all marker are visible
+  var group = new L.featureGroup(allGroups);
+  map.fitBounds(group.getBounds());
+
 }
 
-
-
-//set view that all marker are visible
-var allGroups = new Array();
-allGroups = group1.concat(group2,group3,group4,group5,group6,group7,group8);
-var group = new L.featureGroup(allGroups);
+//first time call
+updateMarker();
 
 
 
-L.control.layers(baseMaps, overlayMaps).addTo(map);
-map.fitBounds(group.getBounds());
+
+
 
 
 </script>

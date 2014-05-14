@@ -15,6 +15,7 @@ $id = "";
 $error1 = "";
 $error2 = "";
 $error3 = "";
+$error4 = "";
 
 
 if(isset($_POST['edit']))
@@ -31,6 +32,7 @@ if(isset($_POST['edit']))
   $category = $response->category;
   $latlang = $response->coordinates;
   $public = $response->public;
+  $_SESSION['cover'] = $response->cover;
 }
 
 
@@ -38,37 +40,82 @@ if(isset($_POST['submit']))
 {
 
   $name = $_POST['name'];
-  $description =$_POST['description'];
+  $description =  nl2br($_POST['description']);
   $description = strip_tags($description, '<p><b><strong>');
+
 
   $category = $_POST['category'];
   $latlang = $_POST['latlang'];
+
+
+  $newImage = false;
+
+  if(basename($_FILES['file']['name']))
+  {
+    $cover = basename($_FILES['file']['name']);
+    $error4 = checkExt($cover);
+    $newImage = true;
+  }
+  else
+  {
+    $cover = $_SESSION['cover'];
+  }
+  unset($_SESSION['cover']);
+
   $public = isset($_POST['public']);
+
 
   $error1 = checkValue($name,1);
   $error2 = checkValue($description,2);
   $error3 = checkValue($latlang,3);
+
+
+
   $id = $_SESSION['placeID'];
 
-  if($error1 == "" && $error2 == "" && $error3 == "")
+  if($error1 == "" && $error2 == "" && $error3 == "" &&  $error4 == "")
   {
     try{
       echo $id;
       $sth = $dbh->prepare("UPDATE places SET
-        name = ?, description = ?, category = ?, coordinates = ?, public = ?
+        name = ?, description = ?, category = ?, coordinates = ?, public = ? , cover = ?
         WHERE id = ?;");
-      $sth->execute(array($name,$description,$category,$latlang,$public,$id));
+      $sth->execute(array($name,$description,$category,$latlang,$public,$cover,$id));
+      if($newImage)
+      {
+        uploadImage($id);
+      }
     }
-    catch (Exception $e) {
-      die("Problem with updating Data!" . $e->getMessage() );
-    }
+      catch (Exception $e) {
+        die("Problem with updating Data!" . $e->getMessage() );
+      }
 
-    header("Location: place.php?id={$id}");
-    exit;
+      if($newImage)
+      {
+        $_SESSION['placeId'] = $id;
+        header("Location: crop.php");
+      }
+      else
+      {
+       header("Location: place.php?id={$id}");
+     }
+     exit;
 
+
+   }
+
+ }
+
+ function checkExt($filename)
+ {
+   $ext = strtolower(substr($filename, -4));
+   if( $ext == '.jpg' || $ext == '.png')
+   {
+    return "";
 
   }
-
+  else
+   return "ungültige Dateiendung!";
 
 }
 
@@ -106,21 +153,29 @@ function chkForm () {
 
   noError = true;
   errorMsg = "dieses Feld darf nicht leer sein";
-  errorMsg1 = "wähle bitte einen Punkt auf der Karte";
 
-
-  for (var i =  1; i < 4; i++) {
-  //reset all errors
-  document.getElementById([i]).innerHTML = "";
-  if( document.getElementById("input"+[i]).value == "")
+  //alert(document.getElementById("input4").value);
+  for (var i =  1; i < 3; i++)
   {
-    if(i != 3)
+    //reset all errors
+    document.getElementById([i]).innerHTML = "";
+    if( document.getElementById("input"+[i]).value == "")
+    {
       document.getElementById([i]).innerHTML = errorMsg;
-    else
-      document.getElementById([i]).innerHTML = errorMsg1;
+      noError = false;
+    }
+  }
 
+if( document.getElementById("input4").value != "")
+{
+  var ext = document.getElementById("input4").value.split(".");
+
+  if(ext[ext.length-1].toLowerCase()  != "png" && ext[ext.length-1].toLowerCase() != "jpg")
+  {
+    document.getElementById("4").innerHTML = "ungültige Dateiendung!";
     noError = false;
   }
+
 }
 return noError;
 
@@ -133,7 +188,7 @@ return noError;
     <h1>Ort bearbeiten</h1><br>
   </div>
 
-  <form class="form-horizontal" action="editPlace.php" method="post" role="form" onsubmit="return chkForm()">
+  <form class="form-horizontal" action="editPlace.php" method="post" role="form" onsubmit="return chkForm()" enctype="multipart/form-data">
 
     <div class="form-group">
       <label for="input1" class="col-sm-2 control-label" >Name*</label>
@@ -154,18 +209,15 @@ return noError;
     <div class="form-group">
       <label class="col-sm-2 control-label" for="category"><b>Kategorie*</b></label>
       <div class="col-sm-7">
-        <select class="form-control" name="category" id="category">
-          <option value="1" <?php if($category == 1) echo "selected"; ?>>Bar</option>
-          <option value="2" <?php if($category == 2) echo "selected"; ?>>Restaurant</option>
-          <option value="3" <?php if($category == 3) echo "selected"; ?>>Hotel</option>
-          <option value="4" <?php if($category == 4) echo "selected"; ?>>Shop</option>
-          <option value="5" <?php if($category == 5) echo "selected"; ?>>Stadt</option>
-          <option value="6" <?php if($category == 6) echo "selected"; ?>>Natur</option>
-          <option value="7" <?php if($category == 7) echo "selected"; ?>>Aussicht</option>
-          <option value="8" <?php if($category == 8) echo "selected"; ?>>Sontige</option>
-        </select>
-      </div>
+         <select class="form-control" name="category" id="category">
+          <?php
+          $allCategories = getAllCategories($dbh);
+          foreach ($allCategories as $cat):?>
+          <option value="<?php echo $cat->id; ?>" <?php if($category ==  $cat->id) echo "selected"; ?> >  <?php echo $cat->category; ?></option>
+        <?php endforeach;?>
+      </select>
     </div>
+  </div>
 
     <div class="form-group">
       <label for="input3" class="col-sm-2 control-label" >Karte*</label>
@@ -182,6 +234,14 @@ return noError;
       <label for="public" class="col-sm-2 control-label" ></label>
       <div class="col-sm-7">
          <input  type="checkbox" name="public" value="1" checked> Ort soll für alle sichtbar sein
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="input4" class="col-sm-2 control-label" >neues Foto</label>
+      <div class="col-sm-7">
+        <input  name="file" type="file" id="input4">
+        <span class="error-inline" id="4"><?php echo $error4; ?></span>
       </div>
     </div>
 
@@ -237,6 +297,6 @@ map.addControl(osmGeocoder);
 </script>
 
 
-      <?php
-      include 'template/footer.php';
-      ?>
+<?php
+include 'template/footer.php';
+?>

@@ -22,8 +22,9 @@ if(isset($_POST['submit']))
 {
 
   $name = $_POST['name'];
-  $description =$_POST['description'];
+  $description =  nl2br($_POST['description']);
   $description = strip_tags($description, '<p><b><strong>');
+
 
   $category = $_POST['category'];
   $latlang = $_POST['latlang'];
@@ -51,43 +52,24 @@ if(isset($_POST['submit']))
         VALUES (?, ?, ?, ?, ?,?,?);");
       $sth->execute(array($name,$description,$category,$latlang,$public,$_SESSION['id'],basename($_FILES['file']['name'])));
 
-
-       if(!file_exists("img/upload/".$_SESSION["id"]."/"))
-       {
-          mkdir("img/upload/".$_SESSION["id"]."/");
-       }
-       mkdir("img/upload/".$_SESSION["id"]."/".$dbh->lastInsertId()."/");
-       $uploaddir = dirname( $_SERVER["SCRIPT_FILENAME"] ) ."/img/upload/".$_SESSION["id"]."/".$dbh->lastInsertId()."/";
-
-      $uploadfile = $uploaddir . $filename;
-
-      if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
-      {
-        echo "Datei wurde erfolgreich hochgeladen nach <a href='upload/'>upload/</a>\n";
-      } else
-      {
-        echo "Problem beim Hochladen der Datei.\n";
-      }
+      uploadImage($dbh->lastInsertId());
 
     }
     catch (Exception $e) {
       die("Problem with inserting Data!" . $e->getMessage() );
     }
 
-
-   header("Location: index.php");
+   $_SESSION['placeId'] =  $dbh->lastInsertId();
+   header("Location: crop.php");
    exit;
 
 
   }
 }
 
-try{
-  $stm = $dbh->query("SELECT * FROM categorys;");
-  $response1 = $stm->fetchAll();
-} catch (Exception $e) {
-  die("Problem" . $e->getMessage() );
-}
+
+
+
 
 
 function checkExt($filename)
@@ -165,9 +147,6 @@ function chkForm () {
 
   }
 
-
-
-
 }
 
 }
@@ -205,16 +184,10 @@ return noError;
       <div class="col-sm-7">
         <select class="form-control" name="category" id="category">
           <?php
-          $count=0;
-          foreach ($response1 as $cat):
-            $count ++;
-          ?>
-          <div class="checkbox">
-            <label>
+          $allCategories = getAllCategories($dbh);
+          foreach ($allCategories as $cat):?>
               <option value="<?php echo $cat->id; ?>">  <?php echo $cat->category; ?></option>
-            </label>
-          </div>
-        <?php endforeach;?>
+          <?php endforeach;?>
         </select>
       </div>
     </div>
@@ -239,7 +212,7 @@ return noError;
    <div class="form-group">
     <label for="input4" class="col-sm-2 control-label" >Foto *</label>
     <div class="col-sm-7">
-      <input name="file" type="file" id="input4" value="<?php echo $file; ?>">
+      <input  name="file" type="file" id="input4" value="">
       <span class="error-inline" id="4"><?php echo $error4; ?></span>
     </div>
   </div>
@@ -285,7 +258,7 @@ function onMapClick(e) {
       }
       else
       {
-        marker.bindPopup("Du hast bereits einen Ort makiert.<br> Du kannst mich aber einfach verschieben.").openPopup();
+        marker.bindPopup("Du hast bereits einen Ort markiert.<br> Du kannst mich aber einfach verschieben.").openPopup();
       }
 
     }

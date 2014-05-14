@@ -3,21 +3,33 @@ include 'system/php/functions.php';
 checklogin();
 
 
+
+
 $pagetitle = "Meine Lieblingsorte";
-try{
+
+if(isset($_GET['userId']))
+{
+  try{
+  $stm = $dbh->prepare("SELECT * FROM places WHERE userId = ?;");
+  $stm->execute(array($_GET['userId']));
+  $response = $stm->fetchAll();
+} catch (Exception $e) {
+  die("Problem" . $e->getMessage() );
+}
+
+}
+else
+{
+
+  try{
   $stm = $dbh->query("SELECT * FROM places ;");
   $response = $stm->fetchAll();
 } catch (Exception $e) {
   die("Problem" . $e->getMessage() );
 }
 
-try{
-  $stm = $dbh->query("SELECT * FROM categorys;");
-  $response1 = $stm->fetchAll();
-} catch (Exception $e) {
-  die("Problem" . $e->getMessage() );
-}
 
+}
 
 include 'template/beginheader.php';
 ?>
@@ -35,7 +47,8 @@ include 'template/menue.php';
   <form class="form-inline" role="form">
     <?php
     $count=0;
-    foreach ($response1 as $cat):
+    $allCategories = getAllCategories($dbh);
+    foreach ( $allCategories as $cat):
       $count ++;
     ?>
     <div class="checkbox">
@@ -51,7 +64,7 @@ include 'template/menue.php';
 
 <script type="text/javascript">
 
-options = new Array(0,1,1,1,1,1,1,1,1);
+options = new Array(0,1,1,1,1,1,1,1,1,1);
 
 for (var i = 1; i <= <?php echo  $count; ?>; i++) {
  var h = document.getElementById(i);
@@ -77,7 +90,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 //creat an array for each group of markers
-  for (var i = 1; i <= 8; i++) {
+  for (var i = 1; i <= 9; i++) {
     this["group"+i] = new Array();
 }
 
@@ -85,7 +98,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 $count = 0;
 foreach ($response as $place):
 
-  $toRemove = array("LatLng(", ")");
+$toRemove = array("LatLng(", ")");
 $coordinates = str_replace($toRemove,"",$place->coordinates);
 ?>
 var i = group<?php echo $place->category;?>.length;
@@ -101,7 +114,7 @@ function updateMarker()
 {
   var allGroups = new Array();
 
-for (var i = 1; i <= 8; i++)
+for (var i = 1; i <= 9; i++)
 {
     for(var x = 0; x < this["group"+i].length; x++)
     {

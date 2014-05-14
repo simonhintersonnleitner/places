@@ -1,0 +1,7 @@
+
+.container:nth-child(2) {
+    with: 800px;
+}
+ img{
+   width: auto;
+  }

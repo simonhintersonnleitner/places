@@ -206,6 +206,7 @@ return noError;
       </div>
     </div>
 
+
     <div class="form-group">
       <label class="col-sm-2 control-label" for="category"><b>Kategorie*</b></label>
       <div class="col-sm-7">

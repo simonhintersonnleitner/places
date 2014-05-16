@@ -1,11 +1,6 @@
 <?php
 include 'system/php/functions.php';
 checklogin();
-
-
-
-
-
 $pagetitle = "Meine Lieblingsorte";
 
 
@@ -59,13 +54,10 @@ if (isset($_POST['cropNow']))
   $targ_w,$targ_h,$_POST['w'],$_POST['h']);
 
   $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
-
-  //if $srcParts['extension'] =="jpgp";
-
   if($srcParts['extension'] == 'jpg')
      imagejpeg($dst_r,$newSrc);
    else if ($srcParts['extension'] == 'png')
-    imagepng($dst_r,$newSrc);
+     imagepng($dst_r,$newSrc);
 
   imagedestroy($img_r);
 
@@ -88,7 +80,6 @@ include 'template/menue.php';
 <script type="text/javascript">
 
   $(function(){
-
     $('#cropbox').Jcrop({
       aspectRatio: 1,
       onSelect: updateCoords

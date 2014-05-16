@@ -72,16 +72,16 @@ if(isset($_POST['submit']))
 
 
 
-function checkExt($filename)
-{
- $ext = substr($filename, -4);
-
- if( $ext != '.jpg' || $ext != '.png')
+ function checkExt($filename)
  {
-  return "ungültige Dateiendung!";
-}
-else
- return "";
+   $ext = strtolower(substr($filename, -4));
+   if( $ext == '.jpg' || $ext == '.png')
+   {
+    return "";
+
+  }
+  else
+   return "ungültige Dateiendung!";
 
 }
 
@@ -139,7 +139,7 @@ function chkForm () {
    {
     var ext = document.getElementById("input"+[i]).value.split(".");
 
-    if(ext[ext.length-1]  != "png" && ext[ext.length-1] != "jpg")
+    if(ext[ext.length-1].toLowerCase()  != "png" && ext[ext.length-1].toLowerCase() != "jpg")
     {
       document.getElementById([i]).innerHTML = "ungültige Dateiendung!";
       noError = false;

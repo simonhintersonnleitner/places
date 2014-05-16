@@ -41,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 <script type="text/javascript">
 
   $(function(){
-
     $('#cropbox').Jcrop({
       aspectRatio: 1,
       onSelect: updateCoords

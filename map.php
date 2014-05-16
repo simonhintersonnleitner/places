@@ -2,9 +2,6 @@
 include 'system/php/functions.php';
 checklogin();
 
-
-
-
 $pagetitle = "Meine Lieblingsorte";
 
 if(isset($_GET['userId']))
@@ -13,6 +10,7 @@ if(isset($_GET['userId']))
   $stm = $dbh->prepare("SELECT * FROM places WHERE userId = ?;");
   $stm->execute(array($_GET['userId']));
   $response = $stm->fetchAll();
+
 } catch (Exception $e) {
   die("Problem" . $e->getMessage() );
 }
@@ -41,7 +39,15 @@ include 'template/menue.php';
 
 <div class="container">
   <div class="hero-unit">
-    <h1>Mapansicht</h1>
+    <h1>
+    <?php
+      if(isset($_GET['userId']))
+         if($name = getFirstnameById($dbh,$_GET['userId']))
+            echo $name."'s Lieblingsorte";
+      else
+        echo "Mapansicht";
+     ?>
+   </h1>
 
   </div>
   <form class="form-inline" role="form">

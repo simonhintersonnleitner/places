@@ -99,6 +99,25 @@ function getUserNameById($dbh,$id)
   }
 }
 
+
+function getFirstnameById($dbh,$id)
+{
+  try
+  {
+    $stm = $dbh->prepare("SELECT firstname FROM user WHERE id = ?");
+    $stm->execute(array($id));
+    $response1 = $stm->fetch();
+    if( $response1 != null)
+      return $response1->firstname;
+    else
+      return "";
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
+
 /**
  *
  * @author    Patrick W.

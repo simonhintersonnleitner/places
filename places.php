@@ -49,7 +49,7 @@ include 'template/menue.php';
     $srcParts = pathinfo("img/upload/".$place->userId.'/'.$place->id.'/'.$place->cover);
     $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
     ?>
-    <a href="place.php?id=<?php echo $place->id; ?>"><img src="<?php echo  $newSrc; ?>" alt=""></a>
+    <a href="place.php?id=<?php echo $place->id; ?>"><img src="<?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?>" alt=""></a>
 
   </div>
 

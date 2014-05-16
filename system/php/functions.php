@@ -5,6 +5,7 @@ session_start();
 
 include "system/php/config.php";
 
+
 if( ! $DB_NAME ) die('please create config.php, define $DB_NAME, $DB_USER, $DB_PASS there');
 
 try {
@@ -24,6 +25,8 @@ function checkLogin()
      exit;
     }
 }
+
+
 
  function checkExt($filename)
  {
@@ -148,6 +151,14 @@ function getUserNameById($dbh,$id)
   }
 }
 
+function getCroppedPlaceImageNameById($id,$dbh)
+{
+  $place = getPlaceData($id,$dbh);
+  $srcParts = pathinfo("img/upload/".$place->userId.'/'.$place->id.'/'.$place->cover);
+  return $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
+}
+
+
 function getPlaceData($id,$dbh)
 {
   $stm = $dbh->prepare("SELECT * FROM places WHERE id = ?");
@@ -155,6 +166,8 @@ function getPlaceData($id,$dbh)
   $response = $stm->fetch();
   return $response;
 }
+
+
 
 function getUserData($id,$dbh)
 {

@@ -41,7 +41,8 @@ include 'template/menue.php';
 <?php if($view == 1): /*Gridview*/?>
   <?php foreach ($response as $user):?>
     <div class='col-md-3'>
-
+ <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
+       <small>mitglied seit <?php  echo getDateFromTimeStamp($user->time); ?></small>
       <?php
         if($user->cover != null)
         {
@@ -54,7 +55,7 @@ include 'template/menue.php';
         }
        ?>
       <a href="person.php?id=<?php echo $user->id; ?>"><img src="<?php echo  $newSrc ; ?>" alt=""></a>
-       <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
+
    </div>
   <?php endforeach; ?>
 <?php endif;?>

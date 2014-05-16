@@ -37,8 +37,6 @@ include 'template/menue.php';
   <h1><?php echo $response->name;  ?> </h1><small> - eingetragen von
   <a href='person.php?id=<?php echo $response1->id; ?>'>
     <?php echo $response1->firstname." ".$response1->lastname;?></a></small><br><br>
-
-
     <?php if($response1->id == $_SESSION['id'] ||  $_SESSION['isAdmin'] == 1 ): ?>
     <div class="form-inline">
      <form action="editPlace.php" method="post" class="form-inline">

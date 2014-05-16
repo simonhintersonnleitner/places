@@ -158,6 +158,12 @@ function getCroppedPlaceImageNameById($id,$dbh)
   return $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
 }
 
+function getDateFromTimeStamp($timeStamp)
+{
+  $value = $timeStamp;
+  $datetime = new DateTime($value);
+  return $datetime->format('d.m.Y');
+}
 
 function getPlaceData($id,$dbh)
 {

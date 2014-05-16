@@ -68,23 +68,6 @@ if(isset($_POST['submit']))
 }
 
 
-
-
-
-
- function checkExt($filename)
- {
-   $ext = strtolower(substr($filename, -4));
-   if( $ext == '.jpg' || $ext == '.png')
-   {
-    return "";
-
-  }
-  else
-   return "ungültige Dateiendung!";
-
-}
-
 function checkValue ($value,$pos)
 {
   if($value == "")

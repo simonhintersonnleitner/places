@@ -28,8 +28,8 @@ h1,h2,h3
    /* background: -moz-linear-gradient(top, #EEE, #FFF);
     background: -webkit-linear-gradient(top, #eee, #fff);
     background: -ms-linear-gradient(top, #eee, #fff);
-    background: -o-linear-gradient(top, #eee, #fff);
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .2);*/
+    background: -o-linear-gradient(top, #eee, #fff);*/
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .2);
     margin: 5px;
     margin-left: 0px;
     padding: 5px;

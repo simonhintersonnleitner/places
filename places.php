@@ -45,11 +45,7 @@ include 'template/menue.php';
   <div class='col-md-3'>
     <h3><?php echo $place->name; ?></h3>
     <small>von <a href="person.php?id=<?php echo  $place->userId; ?>"><?php echo getUserNameById($dbh,$place->userId); ?></a></small>
-    <?php
-    $srcParts = pathinfo("img/upload/".$place->userId.'/'.$place->id.'/'.$place->cover);
-    $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
-    ?>
-    <a href="place.php?id=<?php echo $place->id; ?>"><img src="<?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?>" alt=""></a>
+    <a href="place.php?id=<?php echo $place->id; ?>"><img src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=""></a>
 
   </div>
 

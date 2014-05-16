@@ -18,11 +18,13 @@ if(isset($_POST['cropPlace']))
 {
   $response = getPlaceData($_POST['id'],$dbh);
   $src  = "img/upload/{$response->userId}/{$response->id}/{$response->cover}";
+  $_SESSION['src'] = $src;
 }
 else if(isset($_POST['cropUser']))
 {
   $response = getUserData($_POST['id'],$dbh);
-  $src  = "img/upload/{$response->userId}/{$response->cover}";
+  $src  = "img/upload/{$response->id}/{$response->cover}";
+  $_SESSION['src'] = $src;
 }
 else if(isset($_SESSION['placeId']))
 {

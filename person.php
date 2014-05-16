@@ -47,12 +47,16 @@ include 'template/menue.php';
 
 <div class="container">
   <h1><?php echo $response->firstname."".$response->lastname; ?></h1><small> - registiert seit <?php echo $response->time;?></small><br><br>
-    <?php if($id == $_SESSION['id'] ||  $_SESSION['isAdmin'] == 1 ):?>
+  <?php if($id == $_SESSION['id'] ||  $_SESSION['isAdmin'] == 1 ):?>
   <form action="editPerson.php" method="post" class="form-inline">
-            <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
-            <input type="submit" name="edit"  class="form-control input-sm" value="Profil bearbeiten">
-          </form>
-        <?php   endif; ?>
+    <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
+    <input type="submit" name="edit"  class="form-control input-sm" value="Profil bearbeiten">
+  </form>
+  <form action="crop.php" method="post" class="form-inline">
+    <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
+    <input type="submit" name="cropUser"  class="form-control input-sm" value="Bildausschnitt ändern">
+  </form>
+<?php   endif; ?>
 <br><br>
   <div class="row">
     <div class="col-md-3">

@@ -52,7 +52,7 @@ if(isset($_POST['submit']))
         VALUES (?, ?, ?, ?, ?,?,?);");
       $sth->execute(array($name,$description,$category,$latlang,$public,$_SESSION['id'],basename($_FILES['file']['name'])));
 
-      uploadImage($dbh->lastInsertId());
+      uploadPlaceImage($dbh->lastInsertId());
 
     }
     catch (Exception $e) {

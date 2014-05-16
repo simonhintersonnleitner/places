@@ -65,7 +65,7 @@ include 'template/menue.php';
     </p>
     </div>
     <div class="col-md-8">
-      <p >PHOTO!!</p>
+      <p><img src="img/upload/<?php echo $response->id.'/'.$response->cover; ?>" alt=""></p>
     </div>
   </div>
 

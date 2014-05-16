@@ -25,6 +25,19 @@ function checkLogin()
     }
 }
 
+ function checkExt($filename)
+ {
+   $ext = strtolower(substr($filename, -4));
+   if( $ext == '.jpg' || $ext == '.png')
+   {
+    return "";
+
+  }
+  else
+   return "ungültige Dateiendung!";
+
+}
+
 function removedir($dir) {
    if (is_dir($dir)) {
      $objects = scandir($dir);
@@ -38,7 +51,17 @@ function removedir($dir) {
    }
  }
 
-function uploadImage($newId)
+function deletAllFilesInFolder($path)
+{
+    $files = glob($path); // get all file names
+  foreach($files as $file){ // iterate files
+    if(is_file($file))
+      unlink($file); // delete file
+}
+
+}
+
+function uploadPlaceImage($newId)
 {
    $folder ="./img/upload/";
    $filename = basename($_FILES['file']['name']);
@@ -68,7 +91,33 @@ function uploadImage($newId)
       {
         echo "Problem beim Hochladen der Datei.\n";
       }
+}
 
+function uploadProfileImage()
+{
+   $folder ="./img/upload/";
+   $filename = basename($_FILES['file']['name']);
+
+
+     if(!file_exists($folder.$_SESSION["id"]."/"))
+       {
+          mkdir($folder.$_SESSION["id"]."/");
+       }
+
+       //delete all old image
+       deletAllFilesInFolder($folder.$_SESSION["id"]."/*");
+
+       $uploaddir = $folder.$_SESSION["id"]."/";
+       $uploadfile = $uploaddir . $filename;
+
+      if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
+      {
+        resize($uploadfile, $uploadfile, 1000, 500, false);
+      }
+      else
+      {
+        echo "Problem beim Hochladen der Datei.\n";
+      }
 }
 
 

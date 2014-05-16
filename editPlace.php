@@ -83,7 +83,7 @@ if(isset($_POST['submit']))
       $sth->execute(array($name,$description,$category,$latlang,$public,$cover,$id));
       if($newImage)
       {
-        uploadImage($id);
+        uploadPlaceImage($id);
       }
     }
       catch (Exception $e) {
@@ -92,8 +92,8 @@ if(isset($_POST['submit']))
 
       if($newImage)
       {
-        $_SESSION['placeId'] = $id;
-        header("Location: crop.php");
+         $_SESSION['placeId'] = $id;
+         header("Location: crop.php");
       }
       else
       {
@@ -106,18 +106,7 @@ if(isset($_POST['submit']))
 
  }
 
- function checkExt($filename)
- {
-   $ext = strtolower(substr($filename, -4));
-   if( $ext == '.jpg' || $ext == '.png')
-   {
-    return "";
 
-  }
-  else
-   return "ungültige Dateiendung!";
-
-}
 
 function checkValue ($value,$pos)
 {

@@ -108,9 +108,8 @@ if(isset($_POST['submit']))
 
       if($newImage)
       {
-        //$_SESSION['userId'] = $id;
-        //header("Location: crop.php");
-        header("Location: person.php?id={$id}");
+        $_SESSION['userId'] = $id;
+        header("Location: crop.php");
       }
       else
       {

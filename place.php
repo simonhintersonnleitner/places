@@ -51,7 +51,7 @@ include 'template/menue.php';
     </form>
      <form action="crop.php" method="post" class="form-inline">
       <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
-      <input type="submit" name="crop"  class="form-control input-sm" value="Bildausschnitt ändern">
+      <input type="submit" name="cropPlace"  class="form-control input-sm" value="Bildausschnitt ändern">
     </form>
   </div><br><br>
 <?php endif; ?>

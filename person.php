@@ -65,7 +65,13 @@ include 'template/menue.php';
     </p>
     </div>
     <div class="col-md-8">
-      <p><img src="img/upload/<?php echo $response->id.'/'.$response->cover; ?>" alt=""></p>
+      <?php
+      if($response->cover != null)
+          $newSrc = "img/upload/".$response->id.'/'.$response->cover;
+      else
+          $newSrc = "img/upload/placeholder.png";
+        ?>
+      <p><img src="<?php echo $newSrc; ?>" alt=""></p>
     </div>
   </div>
 

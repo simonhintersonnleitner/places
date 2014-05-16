@@ -148,6 +148,22 @@ function getUserNameById($dbh,$id)
   }
 }
 
+function getPlaceData($id,$dbh)
+{
+  $stm = $dbh->prepare("SELECT * FROM places WHERE id = ?");
+  $stm->execute(array($id));
+  $response = $stm->fetch();
+  return $response;
+}
+
+function getUserData($id,$dbh)
+{
+  $stm = $dbh->prepare("SELECT * FROM user WHERE id = ?");
+  $stm->execute(array($id));
+  $response = $stm->fetch();
+  return $response;
+}
+
 
 function getFirstnameById($dbh,$id)
 {

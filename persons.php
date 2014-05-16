@@ -43,10 +43,17 @@ include 'template/menue.php';
     <div class='col-md-3'>
       <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
       <?php
-        /*$srcParts = pathinfo("img/upload/".$user->userId.'/'.$place->id.'/'.$place->cover);
-        $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];*/
+        if($user->cover != null)
+        {
+          $srcParts = pathinfo("img/upload/".$user->id.'/'.$user->cover);
+          $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
+        }
+        else
+        {
+          $newSrc = "img/upload/placeholder.png";
+        }
        ?>
-      <a href="person.php?id=<?php echo $user->id; ?>"><img src="" alt=""></a>
+      <a href="person.php?id=<?php echo $user->id; ?>"><img src="<?php echo  $newSrc ; ?>" alt=""></a>
    </div>
   <?php endforeach; ?>
 <?php endif;?>

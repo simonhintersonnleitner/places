@@ -11,34 +11,42 @@ $pagetitle = "Meine Lieblingsorte";
  * More info: http://deepliquid.com/content/Jcrop_Implementation_Theory.html
  */
 
-$src ="";
- $id ="";
-if(isset($_POST['crop']))
+$src = "";
+$id = "";
+
+if(isset($_POST['cropPlace']))
 {
   $response = getPlaceData($_POST['id'],$dbh);
   $src  = "img/upload/{$response->userId}/{$response->id}/{$response->cover}";
 }
+else if(isset($_POST['cropUser']))
+{
+  $response = getUserData($_POST['id'],$dbh);
+  $src  = "img/upload/{$response->userId}/{$response->cover}";
+}
 else if(isset($_SESSION['placeId']))
 {
-
   $response = getPlaceData($_SESSION['placeId'],$dbh);
   $src  = "img/upload/{$response->userId}/{$response->id}/{$response->cover}";
+  $_SESSION['src'] = $src;
   unset($_SESSION['placeId']);
 }
-
-function getPlaceData($id,$dbh)
+else if(isset($_SESSION['userId']))
 {
-  $stm = $dbh->prepare("SELECT * FROM places WHERE id = ?");
-  $stm->execute(array($id));
-  $response = $stm->fetch();
-  return $response;
+  $response = getUserData($_SESSION['userId'],$dbh);
+  $src  = "img/upload/{$response->id}/{$response->cover}";
+  $_SESSION['src'] = $src;
+  unset($_SESSION['userId']);
 }
+
 
 if (isset($_POST['cropNow']))
 {
   $targ_w = $targ_h = 500;
   $jpeg_quality = 90;
-  $src = $_POST['src'];
+  $src = $_SESSION['src'];
+  unset($_SESSION['src']);
+
   $srcParts = pathinfo($src);
 
   if($srcParts['extension'] == 'jpg')
@@ -113,7 +121,6 @@ include 'template/menue.php';
       <input type="hidden" id="y" name="y" />
       <input type="hidden" id="w" name="w" />
       <input type="hidden" id="h" name="h" />
-      <input type="hidden" name="src" value="<?php echo  $src; ?>"/>
       <input type="submit" name="cropNow" value="Fertig" class="btn" />
   </form></p>
 </div>

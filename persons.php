@@ -42,7 +42,7 @@ include 'template/menue.php';
   <?php foreach ($response as $user):?>
     <div class='col-md-3'>
  <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
-        <small><a href="places.php?userId=<?php echo  $user->id; ?>"><?php  echo getPlaceCountByUserId($user->id,$dbh);  ?> Orte veröffentlicht</a> </small>
+        <small><a href="places.php?userId=<?php echo  $user->id; ?>"><?php  $count = getPlaceCountByUserId($user->id,$dbh);  echo  ($count == 1) ? $count." Ort" : $count." Orte" ;?> veröffentlicht</a> </small>
       <?php
         if($user->cover != null)
         {

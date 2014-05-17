@@ -14,16 +14,6 @@ else
   $view = 1;
 }
 
-if(isset($_GET['userId']))
-{
-  $id = $_GET['userId'];
-}
-else
-{
-  $id = 1;
-}
-
-
 
 $stm = $dbh->query("SELECT * FROM user;");
 $response = $stm->fetchAll();
@@ -52,7 +42,7 @@ include 'template/menue.php';
   <?php foreach ($response as $user):?>
     <div class='col-md-3'>
  <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
-        <small><a href=""><?php  echo getPlaceCountByUserId($user->id,$dbh);  ?> Orte veröffentlicht</a> </small>
+        <small><a href="places.php?userId=<?php echo  $user->id; ?>"><?php  echo getPlaceCountByUserId($user->id,$dbh);  ?> Orte veröffentlicht</a> </small>
       <?php
         if($user->cover != null)
         {

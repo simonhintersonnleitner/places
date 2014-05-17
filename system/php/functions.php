@@ -185,10 +185,16 @@ function getPlaceCountByUserId($id,$dbh)
 
 function getPlaceData($id,$dbh)
 {
+  try
+  {
   $stm = $dbh->prepare("SELECT * FROM places WHERE id = ?");
   $stm->execute(array($id));
-  $response = $stm->fetch();
-  return $response;
+  return $stm->fetch();
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
 }
 
 
@@ -199,6 +205,32 @@ function getUserData($id,$dbh)
   $stm->execute(array($id));
   $response = $stm->fetch();
   return $response;
+}
+
+function getAllPlacesByUserID($id,$dbh)
+{
+  try
+  {
+    $stm = $dbh->prepare("SELECT * FROM places WHERE userId = ?");
+    $stm->execute(array($id));
+    return $stm->fetchAll();
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
+
+function getAllPublicPlaces($dbh)
+{
+  try
+  {
+    return $dbh->query("SELECT * FROM places WHERE public = 1")->fetchAll();
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
 }
 
 

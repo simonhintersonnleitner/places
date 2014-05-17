@@ -15,15 +15,17 @@ else
   $view = 1;
 }
 
+if(isset($_GET['userId']))
+{
+  $id = $_GET['userId'];
+  $response = getAllPlacesByUserID($id,$dbh);
+}
+else
+{
+  $response = getAllPublicPlaces($dbh);
+}
 
-
-$stm = $dbh->query("SELECT * FROM places WHERE public ='1' ORDER BY time DESC ;");
-$response = $stm->fetchAll();
-
-
-$userId = $_SESSION['id'];
-$stm = $dbh->query("SELECT * FROM user WHERE id = $userId;");
-$response1 = $stm->fetch();
+$response1 = getUserData($_SESSION['id'],$dbh);
 
 include 'template/beginheader.php';
 ?>
@@ -34,8 +36,13 @@ include 'template/menue.php';
 ?>
 
 <div class="container">
-  <a href="places.php?view=1" class="btn btn-default  btn-sm">Gitteransicht</a>
-  <a href="places.php?view=2" class="btn btn-default  btn-sm">Tabellenansicht</a>
+  <?php if(isset($_GET['userId'])):?>
+    <a href="places.php?view=1&userId=<?php echo $_GET['userId'] ?>" class="btn btn-default  btn-sm">Gitteransicht</a>
+    <a href="places.php?view=2&userId=<?php echo $_GET['userId'] ?>" class="btn btn-default  btn-sm">Tabellenansicht</a>
+  <?php else:?>
+    <a href="places.php?view=1" class="btn btn-default  btn-sm">Gitteransicht</a>
+    <a href="places.php?view=2" class="btn btn-default  btn-sm">Tabellenansicht</a>
+  <?php endif;?>
 </div>
 
 <div class="container">

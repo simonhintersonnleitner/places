@@ -165,6 +165,24 @@ function getDateFromTimeStamp($timeStamp)
   return $datetime->format('d.m.Y');
 }
 
+function getPlaceCountByUserId($id,$dbh)
+{
+  try
+  {
+    $stm = $dbh->prepare("SELECT count(*) as count FROM places WHERE userId = ? GROUP BY userId");
+    $stm->execute(array($id));
+    $response1 = $stm->fetch();
+    if($response1 != null)
+      return strval($response1->count);
+    return 0;
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
+
+
 function getPlaceData($id,$dbh)
 {
   $stm = $dbh->prepare("SELECT * FROM places WHERE id = ?");

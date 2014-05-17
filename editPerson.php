@@ -42,7 +42,7 @@ if(isset($_POST['submit']))
   $id =  $_SESSION['userEditId'];//save user id for update query
   $firstname = $_POST['firstname'];
   $lastname = $_POST['lastname'];
-  $description = strip_tags($_POST['description'], '<p><b><strong>');
+  $description = strip_tags($_POST['description'], '<br><p><b><strong><a><ul><li><ol>');
 
 
   if($_POST['pw'] != "")
@@ -147,6 +147,8 @@ function checkPw($pw1,$pw2)
 include 'template/beginheader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
+<script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+
 <?php
 include 'template/endheader.php';
 include 'template/menue.php';
@@ -209,6 +211,21 @@ function chkForm ()
 
   return noError;
 }
+
+tinyMCE.init({
+    selector:'textarea',
+    menubar:false,
+    theme: "modern",
+    skin: 'lightgray',
+    plugins: [
+         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+   ],
+    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+    statusbar: false
+        //etc
+})
+
+
 </script>
 
 <div class="container">

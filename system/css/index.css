@@ -24,6 +24,7 @@ h1,h2,h3
 
 .col-md-3, .col-md-8, .col-md-11{
     background: #fff;
+    max-width: 600px;
     border: 1px solid #DDD;
    /* background: -moz-linear-gradient(top, #EEE, #FFF);
     background: -webkit-linear-gradient(top, #eee, #fff);

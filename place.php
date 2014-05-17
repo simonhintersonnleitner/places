@@ -34,6 +34,7 @@ include 'template/menue.php';
 ?>
 
 <div class="container">
+  <div class="row">
   <h1><?php echo $response->name;  ?> </h1><small> - eingetragen von
   <a href='person.php?id=<?php echo $response1->id; ?>'>
     <?php echo $response1->firstname." ".$response1->lastname;?></a></small><br><br>
@@ -53,7 +54,7 @@ include 'template/menue.php';
     </form>
   </div><br><br>
 <?php endif; ?>
-
+</div>
 <div class="row">
   <div class="col-md-11">
     <p ><?php echo $response->description; ?></p>

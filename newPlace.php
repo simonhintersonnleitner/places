@@ -22,8 +22,7 @@ if(isset($_POST['submit']))
 {
 
   $name = $_POST['name'];
-  $description =  nl2br($_POST['description']);
-  $description = strip_tags($description, '<p><b><strong>');
+  $description = strip_tags($_POST['description'], '<br><p><b><strong><a><ul><li><ol>');
 
 
   $category = $_POST['category'];
@@ -88,6 +87,7 @@ function checkValue ($value,$pos)
 include 'template/beginheader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
+<script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
 <?php
 include 'template/endheader.php';
 include 'template/menue.php';
@@ -136,6 +136,20 @@ function chkForm () {
 return noError;
 
 }
+
+tinyMCE.init({
+    selector:'textarea',
+    menubar:false,
+    theme: "modern",
+    skin: 'lightgray',
+    plugins: [
+         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+   ],
+    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+    statusbar: false
+        //etc
+})
+
 
 </script>
 

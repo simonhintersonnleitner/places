@@ -13,7 +13,8 @@ if(isset($_POST["login"]))
   $response = $stm->fetch();
   if($response != null)
   {
-    if(password_verify($_POST["pw"], $response->pw))
+    //if(password_verify($_POST["pw"], $response->pw))
+    if(verifiyPw($_POST["pw"], $response->pw))
     {
       $_SESSION['firstname'] = $response->firstname;
       $_SESSION['id'] = $response->id;

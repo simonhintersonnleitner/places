@@ -41,7 +41,8 @@ if(isset($_POST["register"]))
   {
 
     $pw = $_POST['pw'];
-    $hashOfPw = password_hash($pw, PASSWORD_DEFAULT);
+    //$hashOfPw = password_hash($pw, PASSWORD_DEFAULT);
+    $hashOfPw = hashPassswortSecure($pw);
 
     $stm = $dbh->prepare("INSERT INTO user (firstname,lastname,email,pw) VALUES (?,?,?,?);");
     $stm->execute(array($firstname,$lastname,$email,$hashOfPw));

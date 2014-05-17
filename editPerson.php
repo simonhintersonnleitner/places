@@ -84,7 +84,8 @@ if(isset($_POST['submit']))
 
       if( $pw_control != "") //override the old password if a new is set
       {
-        $pw = password_hash($pw, PASSWORD_DEFAULT);
+        //$pw = password_hash($pw, PASSWORD_DEFAULT);
+        $pw = hashPassswortSecure($pw);
         $sth = $dbh->prepare("UPDATE user SET
           firstname = ?, lastname = ?, description = ?, pw = ?, cover = ?
           WHERE id = ?;");

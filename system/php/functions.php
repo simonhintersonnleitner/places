@@ -252,6 +252,24 @@ function getFirstnameById($dbh,$id)
   }
 }
 
+function hashPassswortSecure($pw)
+{
+  $cost = 10;
+  $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
+  $salt = sprintf("$2a$%02d$", $cost) . $salt;
+  return crypt($pw, $salt);
+}
+
+function verifiyPw($pw,$pwFromDB)
+{
+  if(crypt($pw, $pwFromDB) === $pwFromDB)
+  {
+    return true;
+  }
+
+  return false;
+}
+
 /**
  *
  * @author    Patrick W.

@@ -4,9 +4,6 @@ checklogin();
 
 $pagetitle = "Personenprofil";
 
-
-
-
 if(isset($_GET['id']))
 {
 

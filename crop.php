@@ -123,7 +123,7 @@ include 'template/menue.php';
       <input type="hidden" id="y" name="y" />
       <input type="hidden" id="w" name="w" />
       <input type="hidden" id="h" name="h" />
-      <input type="submit" name="cropNow" value="Fertig" class="btn" />
+      <input type="submit" name="cropNow" value="Fertig" class="btn btn-default" />
   </form></p>
 </div>
 

@@ -64,10 +64,18 @@ function deletAllFilesInFolder($path)
 
 }
 
+// remove umlauts
+function cleanFilename($filename)
+{
+  $toReplace = Array("/ä/","/ö/","/ü/","/Ä/","/Ö/","/Ü/","/ß/");
+  $replace = Array("ae","oe","ue","Ae","Oe","Ue","ss");
+  return preg_replace($toReplace, $replace, $filename);
+}
+
 function uploadPlaceImage($newId)
 {
    $folder ="./img/upload/";
-   $filename = basename($_FILES['file']['name']);
+   $filename = cleanFilename(basename($_FILES['file']['name']));
 
 
      if(!file_exists($folder.$_SESSION["id"]."/"))
@@ -99,8 +107,7 @@ function uploadPlaceImage($newId)
 function uploadProfileImage()
 {
    $folder ="./img/upload/";
-   $filename = basename($_FILES['file']['name']);
-
+   $filename = cleanFilename(basename($_FILES['file']['name']));
 
      if(!file_exists($folder.$_SESSION["id"]."/"))
        {

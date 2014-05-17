@@ -52,7 +52,7 @@ if(isset($_POST['submit']))
 
   if(basename($_FILES['file']['name']))
   {
-    $cover = basename($_FILES['file']['name']);
+    $cover = cleanFilename(basename($_FILES['file']['name']));
     $error4 = checkExt($cover);
     $newImage = true;
   }

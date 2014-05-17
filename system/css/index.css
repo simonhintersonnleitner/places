@@ -4,6 +4,7 @@ body {
    background-position: center 10%;
    background-repeat: no-repeat;
    */
+
 }
 
 a{
@@ -18,11 +19,11 @@ a:hover{
 h1,h2,h3
 {
  font-family: 'Raleway', sans-serif;
-    font-weight: 400;
+    font-weight: 300;
 
 }
 
-.col-md-3, .col-md-8, .col-md-11{
+.col-md-3, .col-md-4, .col-md-8, .col-md-11{
     background: #fff;
     max-width: 600px;
     border: 1px solid #DDD;

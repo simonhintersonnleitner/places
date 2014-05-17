@@ -43,6 +43,7 @@ include 'template/menue.php';
 
 
 <div class="container">
+  <div class="row">
   <h1><?php echo $response->firstname."".$response->lastname; ?></h1><small> - registiert seit <?php  echo getDateFromTimeStamp($response->time);  ?></small><br><br>
   <?php if($id == $_SESSION['id'] ||  $_SESSION['isAdmin'] == 1 ):?>
   <form action="editPerson.php" method="post" class="form-inline">
@@ -54,9 +55,23 @@ include 'template/menue.php';
     <input type="submit" name="cropUser"  class="form-control input-sm" value="Bildausschnitt ändern">
   </form>
 <?php   endif; ?>
-<br><br>
+</div>
   <div class="row">
-    <div class="col-md-3">
+     <div class="col-md-4">
+      <?php
+      if($response->cover != null)
+        {
+          $srcParts = pathinfo("img/upload/".$response->id.'/'.$response->cover);
+          $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
+        }
+        else
+        {
+          $newSrc = "img/upload/placeholder.png";
+        }
+        ?>
+     <img src="<?php echo $newSrc; ?>" alt="">
+    </div>
+    <div class="col-md-4">
       <p><?php
       if($response->description != null)
         echo $response->description;
@@ -65,17 +80,8 @@ include 'template/menue.php';
       ?>
     </p>
     </div>
-    <div class="col-md-8">
-      <?php
-      if($response->cover != null)
-          $newSrc = "img/upload/".$response->id.'/'.$response->cover;
-      else
-          $newSrc = "img/upload/placeholder.png";
-        ?>
-      <p><img src="<?php echo $newSrc; ?>" alt=""></p>
-    </div>
   </div>
-
+  <div class="row">
   <h3><?php echo $response->firstname;?>'s Lieblingsorte</h3>   <a href="map.php?userId=<?php echo  $id; ?>">>> Mapansicht</a><br><br>
   <table class="table">
     <?php foreach ($response1 as $place):?>
@@ -87,7 +93,7 @@ include 'template/menue.php';
   <?php endforeach;?>
   </table>
 </div>
-
+</div>
 <?php
 include 'template/footer.php';
 ?>

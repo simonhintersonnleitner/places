@@ -51,9 +51,9 @@ if (isset($_POST['cropNow']))
 
   $srcParts = pathinfo($src);
 
-  if($srcParts['extension'] == 'jpg')
+  if(strtolower($srcParts['extension']) == 'jpg')
      $img_r = imagecreatefromjpeg($src);
-   else if ($srcParts['extension'] == 'png')
+   else if (strtolower($srcParts['extension']) == 'png')
      $img_r = imagecreatefrompng($src);
    else
       exit;
@@ -64,9 +64,9 @@ if (isset($_POST['cropNow']))
   $targ_w,$targ_h,$_POST['w'],$_POST['h']);
 
   $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
-  if($srcParts['extension'] == 'jpg')
+  if(strtolower($srcParts['extension']) == 'jpg')
      imagejpeg($dst_r,$newSrc);
-   else if ($srcParts['extension'] == 'png')
+   else if (strtolower($srcParts['extension']) == 'png')
      imagepng($dst_r,$newSrc);
 
   imagedestroy($img_r);

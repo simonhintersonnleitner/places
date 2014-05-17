@@ -110,7 +110,7 @@ $coordinates = str_replace($toRemove,"",$place->coordinates);
 var i = group<?php echo $place->category;?>.length;
 
 group<?php echo $place->category;?>[i] = new L.Marker([<?php echo $coordinates; ?>], {draggable:false});
-group<?php echo $place->category;?>[i].bindPopup('<?php echo $place->name;?><br><a href="place.php?id=<?php echo $place->id; ?>">mehr Info</a>').openPopup();
+group<?php echo $place->category;?>[i].bindPopup('<?php echo $place->name;?><br><a href="place.php?id=<?php echo $place->id; ?>"><img id=map-img src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=""></a>').openPopup();
 
 <?php  $count ++;
 endforeach; ?>

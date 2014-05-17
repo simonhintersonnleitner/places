@@ -115,6 +115,9 @@ h1,h2,h3
 #map {
     height: 215px;
 }
+#map-img{
+    width: 80px;
+}
 #map-big {
     height: 500px;
     margin-top: 10px;

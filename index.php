@@ -39,7 +39,7 @@ include 'template/menue.php';
 
     </div>
     <div class="row">
-     <h2>kürzlich geteilte Orte</h2>
+     <h3>kürzlich geteilte Orte</h3>
      <?php foreach ($response as $place):
      ?>
      <div class='col-md-3'>

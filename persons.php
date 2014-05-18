@@ -32,6 +32,7 @@ include 'template/menue.php';
 ?>
 
 <div class="container">
+  <h3>Alle Personen</h3>
   <a href="persons.php?view=1" class="btn btn-default  btn-sm">Gitteransicht</a>
   <a href="persons.php?view=2" class="btn btn-default  btn-sm">Tabellenansicht</a>
   <br>

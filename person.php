@@ -54,6 +54,7 @@ include 'template/menue.php';
     <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
     <input type="submit" name="cropUser"  class="form-control input-sm" value="Bildausschnitt ändern">
   </form>
+  <br>
 <?php   endif; ?>
 </div>
   <div class="row">
@@ -82,7 +83,10 @@ include 'template/menue.php';
     </div>
   </div>
   <div class="row">
-  <h3><?php echo $response->firstname;?>'s Lieblingsorte</h3>   <a href="map.php?userId=<?php echo  $id; ?>">>> Mapansicht</a><br><br>
+  <h3><?php echo $response->firstname;?>'s Lieblingsorte</h3>
+   <a href="map.php?userId=<?php echo  $id; ?>" class="btn btn-default btn-sm">Mapansicht</a>
+   <a href="places.php?userId=<?php echo  $id; ?>" class="btn btn-default btn-sm">Gitteransicht</a>
+   <br><br>
   <table class="table">
     <?php foreach ($response1 as $place):?>
     <tr>

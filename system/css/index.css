@@ -4,7 +4,6 @@ body {
    background-position: center 10%;
    background-repeat: no-repeat;
    */
-
 }
 
 a{
@@ -81,9 +80,7 @@ h1,h2,h3
 
 
 .mastfoot {
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    float: right;
     background-color: white;
     padding: 5px;
     text-align: right;

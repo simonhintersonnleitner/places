@@ -15,13 +15,20 @@ body
     background-color: withe;
 }
 
+a{
+    color:#98ba00;
+    text-decoration: none;
+}
+a:hover{
+
+    color:#819b00;
+    text-decoration: none;
+}
+
+
 .mastfoot {
-    position: fixed;
-    bottom: 0;
-    right:  0;
-    background-color: white;
     padding: 5px;
-    text-align: right;
+    text-align: center;
   }
 
 
@@ -31,10 +38,6 @@ body
   background-image: url("../../img/login_back1.jpg");
    background-position: center 10%;
    background-repeat: no-repeat;
-  }
-  .mastfoot {
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
   }
 }
 
@@ -52,13 +55,8 @@ body
   font-weight: normal;
 }
 .form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
+  font-size: 14px;
+  margin:5px;
 }
 .form-signin .form-control:focus {
   z-index: 2;
@@ -80,21 +78,6 @@ img{
 
   padding: 10px;
   padding-bottom: 0px;
-}
-.btn
-{
-  color: #FFFFFF;
-  background-color: #AAD400;
-  border-color: #949494;
-}
-.btn:hover
-{
-  color: #FFFFFF;
-  background-color: #667F00 ;
-  border-color: #949494;
-}
-img{
-
   margin-bottom: 20px;
 }
 

@@ -48,15 +48,16 @@ include 'template/endheader.php';
       <img src="img/logo_new.png"><br>
 
 
-    <input type="email" name="email" class="form-control" placeholder="Email-Adresse"  >
+    <input type="email" name="email" class="form-control btn-sm" placeholder="Email-Adresse"  >
     <input type="password" name="pw" class="form-control" placeholder="Passwort" >
 
-    <span class="error"><?php echo $error; ?><br></span>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Anmelden</button>
+    <span class="error"><?php echo $error; ?></span>
+   <input type="submit" name="login"  class="form-control input-sm" value="Anmelden">
     <p>Du hast noch kein Konto? - <a href="register.php">Registieren</a></p>
   </form>
+
+<small><?php
+include 'template/footer.php';
+?></small>
 </div>
 
-<?php
-include 'template/footer.php';
-?>

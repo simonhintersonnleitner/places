@@ -40,8 +40,7 @@ include 'template/menue.php';
     </div>
     <div class="row">
      <h3>kürzlich geteilte Orte</h3>
-     <?php foreach ($response as $place):
-     ?>
+     <?php foreach ($response as $place):?>
      <div class='col-md-3'>
       <h3><?php echo $place->name; ?></h3>
       <small>von <a href="person.php?id=<?php echo  $place->userId; ?>"><?php echo getUserNameById($dbh,$place->userId); ?></a></small>

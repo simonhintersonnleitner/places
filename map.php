@@ -39,7 +39,7 @@ include 'template/menue.php';
 
 <div class="container">
   <div class="hero-unit">
-    <h1>
+    <h3>
     <?php
       if(isset($_GET['userId']))
          if($name = getFirstnameById($dbh,$_GET['userId']))
@@ -47,7 +47,7 @@ include 'template/menue.php';
       else
         echo "Mapansicht";
      ?>
-   </h1>
+   </h3>
 
   </div>
   <form class="form-inline" role="form">

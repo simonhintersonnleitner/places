@@ -37,11 +37,15 @@ include 'template/menue.php';
 
 <div class="container">
   <?php if(isset($_GET['userId'])):?>
+    <h3><?php echo getFirstnameById($dbh,$_GET['userId'])?>'s Lieblingsorte</h3>
     <a href="places.php?view=1&userId=<?php echo $_GET['userId'] ?>" class="btn btn-default  btn-sm">Gitteransicht</a>
     <a href="places.php?view=2&userId=<?php echo $_GET['userId'] ?>" class="btn btn-default  btn-sm">Tabellenansicht</a>
+    <a href="map.php?userId=<?php echo $_GET['userId'] ?>" class="btn btn-default  btn-sm">Mapansicht</a>
   <?php else:?>
+    <h3>Alle Lieblingsorte</h3>
     <a href="places.php?view=1" class="btn btn-default  btn-sm">Gitteransicht</a>
     <a href="places.php?view=2" class="btn btn-default  btn-sm">Tabellenansicht</a>
+   <a href="map.php" class="btn btn-default  btn-sm">Mapansicht</a>
   <?php endif;?>
 </div>
 

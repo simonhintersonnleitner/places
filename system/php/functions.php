@@ -72,26 +72,26 @@ function cleanFilename($filename)
   return preg_replace($toReplace, $replace, $filename);
 }
 
-function uploadPlaceImage($newId)
+function uploadPlaceImage($newId,$userId)
 {
    $folder ="./img/upload/";
    $filename = cleanFilename(basename($_FILES['file']['name']));
 
 
-     if(!file_exists($folder.$_SESSION["id"]."/"))
+     if(!file_exists($folder.$userId."/"))
        {
-          mkdir($folder.$_SESSION["id"]."/");
+          mkdir($folder.$userId."/");
        }
        //delete all old images
-      if(file_exists($folder.$_SESSION["id"]."/".$newId."/"))
+      if(file_exists($folder.$userId."/".$newId."/"))
        {
 
-         removedir($folder.$_SESSION["id"]."/".$newId."/");
+         removedir($folder.$userId."/".$newId."/");
        }
 
-       mkdir($folder.$_SESSION["id"]."/".$newId."/");
+       mkdir($folder.$userId."/".$newId."/");
 
-       $uploaddir = $folder.$_SESSION["id"]."/".$newId."/";
+       $uploaddir = $folder.$userId."/".$newId."/";
        $uploadfile = $uploaddir . $filename;
 
       if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
@@ -104,20 +104,20 @@ function uploadPlaceImage($newId)
       }
 }
 
-function uploadProfileImage()
+function uploadProfileImage($userId)
 {
    $folder ="./img/upload/";
    $filename = cleanFilename(basename($_FILES['file']['name']));
 
-     if(!file_exists($folder.$_SESSION["id"]."/"))
+     if(!file_exists($folder.$userId."/"))
        {
-          mkdir($folder.$_SESSION["id"]."/");
+          mkdir($folder.$userId."/");
        }
 
        //delete all old image
-       deletAllFilesInFolder($folder.$_SESSION["id"]."/*");
+       deletAllFilesInFolder($folder.$userId."/*");
 
-       $uploaddir = $folder.$_SESSION["id"]."/";
+       $uploaddir = $folder.$userId."/";
        $uploadfile = $uploaddir . $filename;
 
       if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))

@@ -33,6 +33,7 @@ if(isset($_POST['edit']))
   $latlang = $response->coordinates;
   $public = $response->public;
   $_SESSION['cover'] = $response->cover;
+  $_SESSION['userId'] = $response->userId;
 }
 
 
@@ -61,6 +62,9 @@ if(isset($_POST['submit']))
   }
   unset($_SESSION['cover']);
 
+  $userId = $_SESSION['userId'];
+  unset($_SESSION['userId']);
+
   $public = isset($_POST['public']);
 
 
@@ -82,7 +86,7 @@ if(isset($_POST['submit']))
       $sth->execute(array($name,$description,$category,$latlang,$public,$cover,$id));
       if($newImage)
       {
-        uploadPlaceImage($id);
+        uploadPlaceImage($id,$userId);
       }
     }
       catch (Exception $e) {

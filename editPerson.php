@@ -100,7 +100,7 @@ if(isset($_POST['submit']))
 
      if($newImage)
       {
-        uploadProfileImage();
+        uploadProfileImage($id);
       }
    }
    catch (Exception $e) {

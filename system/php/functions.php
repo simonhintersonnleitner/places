@@ -34,8 +34,7 @@ function checkLogin()
    if( $ext == '.jpg' || $ext == '.png')
    {
     return "";
-
-  }
+   }
   else
    return "ungültige Dateiendung!";
 
@@ -135,7 +134,7 @@ function getAllCategories($dbh)
 {
   try
   {
-    return $dbh->query("SELECT * FROM categorys;")->fetchAll();
+    return $dbh->query("SELECT * FROM categories;")->fetchAll();
   }
   catch (Exception $e)
   {
@@ -273,7 +272,6 @@ function verifiyPw($pw,$pwFromDB)
   {
     return true;
   }
-
   return false;
 }
 
@@ -282,7 +280,7 @@ function verifiyPw($pw,$pwFromDB)
  * @author    Patrick W.
  * @website    http://www.it-talent.de
  * @date    02/06/2013
- *
+ *<div></div>
  **/
  function resize($path, $new_path, $new_width, $new_height, $cut, $size = false) {
     /*

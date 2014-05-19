@@ -39,9 +39,6 @@ include 'template/beginheader.php';
 include 'template/endheader.php';
 include 'template/menue.php';
 ?>
-
-
-
 <div class="container">
   <div class="row">
   <h1><?php echo $response->firstname."".$response->lastname; ?></h1><small> - registiert seit <?php  echo getDateFromTimeStamp($response->time);  ?></small><br><br>

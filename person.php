@@ -47,10 +47,12 @@ include 'template/menue.php';
     <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
     <input type="submit" name="edit"  class="form-control input-sm" value="Profil bearbeiten">
   </form>
+  <?php if($response->cover != null):?>
   <form action="crop.php" method="post" class="form-inline">
     <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
     <input type="submit" name="cropUser"  class="form-control input-sm" value="Bildausschnitt ändern">
   </form>
+<?php endif;?>
   <br>
 <?php   endif; ?>
 </div>

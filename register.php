@@ -1,5 +1,6 @@
 <?php
 include 'system/php/functions.php';
+
 $pagetitle = "Meine Lieblingsorte";
 
 $error1 = "";
@@ -47,7 +48,15 @@ if(isset($_POST["register"]))
     $stm = $dbh->prepare("INSERT INTO user (firstname,lastname,email,pw) VALUES (?,?,?,?);");
     $stm->execute(array($firstname,$lastname,$email,$hashOfPw));
 
-    header("Location: login.php");
+    $newId = $dbh->lastInsertId();
+
+    $stm = $dbh->prepare("INSERT INTO  activation (actKey,userId) VALUES (?,?);");
+    $key = md5(microtime().rand());
+    $stm->execute(array($key,$newId));
+
+    sendActivationEmail($email,$firstname,$key);
+
+    header("Location: login.php?msgId=1");
     exit;
   }
   else
@@ -113,21 +122,22 @@ include 'template/endheader.php';
 
 <div class="container">
   <form class="form-signin center" name="registerForm" role="form" action="register.php" method="post" onsubmit="return chkForm()">
-    <h2 class="form-signin-heading">Neu Registieren</h2>
+    <h3 class="form-signin-heading">neues Konto erstellen</h3>
     <input type="text"  id="input1" name="firstname" class="form-control" placeholder="Vorname"  value="<?php echo  $firstname ?>">
     <p><span class="error" id="1"><?php echo $error1; ?></span></p>
     <input type="text" id="input2" name="lastname" class="form-control" placeholder="Nachname"  value="<?php echo  $lastname ?>">
-    <p><span  class="error" id="2"><?php echo $error2; ?></span></span></p>
+    <p><span  class="error" id="2"><?php echo $error2; ?></span></p>
     <input type="email" id="input3" name="email" class="form-control" placeholder="Email-Adresse" value="<?php echo  $email ?>" >
-    <p><span class="error" id="3"><?php echo $error3; ?></span></span></p>
+    <p><span class="error" id="3"><?php echo $error3; ?></span></p>
     <input type="password" id="input4" name="pw" class="form-control" placeholder="Passwort" value="<?php echo  $pw ?>">
-    <p><span class="error" id="4"><?php echo $error4; ?></span></span></p>
+    <p><span class="error" id="4"><?php echo $error4; ?></span></p>
     <input type="password" id="input5" name="pw_control" class="form-control" placeholder="Passwort wiederholen"  value="<?php echo  $pw_control ?>">
-    <p><span class="error" id="5"><?php echo $error5; ?></span></span></p>
-    <button class="btn btn-lg btn-primary btn-block" type="submit" name="register">Registieren</button>
+    <p><span class="error" id="5"><?php echo $error5; ?></span></p>
+    <input type="submit" class="form-control input-sm" name="register" value="Registieren">
   </form>
-</div>
 
-<?php
+</div>
+  <?php
 include 'template/footer.php';
 ?>
+

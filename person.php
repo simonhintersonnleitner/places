@@ -41,7 +41,7 @@ include 'template/menue.php';
 ?>
 <div class="container">
   <div class="row">
-  <h1><?php echo $response->firstname."".$response->lastname; ?></h1><small> - registiert seit <?php  echo getDateFromTimeStamp($response->time);  ?></small><br><br>
+  <h1><?php echo $response->firstname." ".$response->lastname; ?></h1><small> - registiert seit <?php  echo getDateFromTimeStamp($response->time);  ?></small><br><br>
   <?php if($id == $_SESSION['id'] ||  $_SESSION['isAdmin'] == 1 ):?>
   <form action="editPerson.php" method="post" class="form-inline">
     <input type="hidden" name="id" value='<?php echo $response->id; ?>'>

@@ -1,11 +1,6 @@
 <?php
-$empfaenger = 's.hintersonnleitner@chello.at';
-$betreff = 'Kontoaktvierung';
-$nachricht = 'Du musst nur noch dein Email adresse verifizieren und schon kannst du Lieblingsorte mit anderen teilen.';
+include 'system/php/functions.php';
 
-$header = 'From: register@meinelieblingsorte.at' . "\r\n" .
-    'Reply-To: webmaster@example.com' . "\r\n" .
-    'X-Mailer: PHP/' . phpversion();
+sendActivationEmail('s.hintersonnleitner@chello.at','Simon','123456789');
 
-mail($empfaenger, $betreff, $nachricht, $header);
 ?>

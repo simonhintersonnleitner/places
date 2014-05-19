@@ -68,8 +68,9 @@ include 'template/endheader.php';
   <?php if($_GET['msgId'] == 3):?>
       <div class="alert alert-danger"><small><b>Aktvierung nicht erfolgreich</b><br>Entweder dein Konto wurde schon aktviert oder dein Aktvierungscode ist ungültig.</small></div>
   <?php endif;?>
-<?php endif;?>
-
+<?php else:?>
+  <h4>Teile deine Lieblingsorte mit anderen.</h4>
+ <?php endif;?>
   <form class="form-signin center" role="form" action="login.php" method="post">
     <input type="email" name="email" class="form-control " placeholder="Email-Adresse">
     <input type="password" name="pw" id="pwForm" class="form-control" placeholder="Passwort" >

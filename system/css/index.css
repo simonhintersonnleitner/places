@@ -4,6 +4,7 @@ body {
    background-position: center 10%;
    background-repeat: no-repeat;
    */
+   font-family: 'Muli', sans-serif;
 }
 
 a{
@@ -15,7 +16,7 @@ a:hover{
     color:#819b00;
     text-decoration: none;
 }
-h1,h2,h3
+h1,h2,h3,h4,h5
 {
     font-family: 'Raleway', sans-serif;
     font-weight: 300;
@@ -24,6 +25,10 @@ h1,h2,h3
 .list-group-item
 {
     max-width:400px;
+}
+.control-label
+{
+    font-weight: normal;
 }
 .col-md-5
 {

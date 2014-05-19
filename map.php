@@ -42,8 +42,10 @@ include 'template/menue.php';
     <h3>
     <?php
       if(isset($_GET['userId']))
+      {
          if($name = getFirstnameById($dbh,$_GET['userId']))
             echo $name."'s Lieblingsorte";
+      }
       else
         echo "Mapansicht";
      ?>

@@ -121,6 +121,7 @@ include 'template/endheader.php';
 
 
 <div class="container">
+   <img src="img/logo_new.png">
   <form class="form-signin center" name="registerForm" role="form" action="register.php" method="post" onsubmit="return chkForm()">
     <h3 class="form-signin-heading">neues Konto erstellen</h3>
     <input type="text"  id="input1" name="firstname" class="form-control" placeholder="Vorname"  value="<?php echo  $firstname ?>">

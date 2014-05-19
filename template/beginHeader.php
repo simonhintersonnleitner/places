@@ -11,3 +11,4 @@
   <link rel="stylesheet" href="system/leaflet/Control.OSMGeocoder.css" />
   <script src="system/leaflet/Control.OSMGeocoder.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,200' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Muli:300,400' rel='stylesheet' type='text/css'>

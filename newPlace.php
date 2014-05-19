@@ -161,7 +161,7 @@ tinyMCE.init({
   <form class="form-horizontal" action="newPlace.php" method="post"  onsubmit="return chkForm()" enctype="multipart/form-data">
 
     <div class="form-group">
-      <label for="input1" class="col-sm-2 control-label" >Name*</label>
+      <label for="input1" class="col-sm-2 control-label" >Name</label>
       <div class="col-sm-7">
         <input type="text" class="form-control" name="name" id="input1" placeholder="Name" value="<?php echo $name; ?>">
         <span class="error-inline" id="1"><?php echo $error1; ?></span>
@@ -169,7 +169,7 @@ tinyMCE.init({
     </div>
 
     <div class="form-group">
-      <label for="input2" class="col-sm-2 control-label" >Beschreibung*</label>
+      <label for="input2" class="col-sm-2 control-label" >Beschreibung</label>
       <div class="col-sm-7">
         <textarea class="form-control" rows="5" name="description" id="input2" placeholder="Beschreibung"><?php echo $description; ?></textarea>
         <span class="error-inline" id="2"><?php echo $error2; ?></span>
@@ -177,7 +177,7 @@ tinyMCE.init({
     </div>
 
     <div class="form-group">
-      <label class="col-sm-2 control-label" for="category"><b>Kategorie*</b></label>
+      <label class="col-sm-2 control-label" for="category"><b>Kategorie</b></label>
       <div class="col-sm-7">
         <select class="form-control" name="category" id="category">
           <?php
@@ -189,7 +189,7 @@ tinyMCE.init({
       </div>
     </div>
     <div class="form-group">
-      <label for="input3" class="col-sm-2 control-label" >Karte*</label>
+      <label for="input3" class="col-sm-2 control-label" >Karte</label>
       <div class="col-sm-7">
         <div id="map">
         </div>
@@ -207,7 +207,7 @@ tinyMCE.init({
    </div>
 
    <div class="form-group">
-    <label for="input4" class="col-sm-2 control-label" >Foto *</label>
+    <label for="input4" class="col-sm-2 control-label" >Foto</label>
     <div class="col-sm-7">
       <input  name="file" type="file" id="input4" value="">
       <span class="error-inline" id="4"><?php echo $error4; ?></span>
@@ -216,7 +216,7 @@ tinyMCE.init({
 
 
   <div class="form-group">
-    <label class="col-sm-2 control-label" for="submit">* Pflichtfelder</label>
+    <label class="col-sm-2 control-label" for="submit"></label>
     <div class="col-sm-2">
       <input  class="form-control" type="submit" name="submit" value="Eintragen" >
     </div>

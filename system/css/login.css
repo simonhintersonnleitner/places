@@ -27,10 +27,16 @@ h1,h2,h3
     font-weight: 300;
 
 }
+h3
+{
+  margin-top:0px;
+
+}
 
 body
 {
     background-color: withe;
+    font-family: 'Muli', sans-serif;
 }
 
 a{
@@ -77,8 +83,7 @@ a:hover{
 img{
 
   padding: 10px;
-  padding-bottom: 0px;
-  margin-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 

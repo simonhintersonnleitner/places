@@ -230,7 +230,7 @@ tinyMCE.init({
 
 <div class="container">
   <div class="hero-unit">
-    <h1>Mein Profil bearbeiten</h1><br>
+    <h2>Mein Profil bearbeiten</h2><br>
   </div>
 
   <form class="form-horizontal" action="editPerson.php" method="post" role="form" onsubmit="return chkForm()" enctype="multipart/form-data">

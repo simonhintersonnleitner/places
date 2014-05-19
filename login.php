@@ -69,13 +69,16 @@ include 'template/endheader.php';
       <div class="alert alert-danger"><small><b>Aktvierung nicht erfolgreich</b><br>Entweder dein Konto wurde schon aktviert oder dein Aktvierungscode ist ungültig.</small></div>
   <?php endif;?>
 <?php else:?>
-  <h4>Teile deine Lieblingsorte mit anderen.</h4>
- <?php endif;?>
+  <?php if($error == ""):?>
+    <h4>Teile deine Lieblingsorte mit anderen.</h4>
+  <?php else:?>
+    <div class="alert alert-danger"><small><?php echo $error; ?></small></div>
+  <?php endif;?>
+<?php endif;?>
   <form class="form-signin center" role="form" action="login.php" method="post">
     <input type="email" name="email" class="form-control " placeholder="Email-Adresse">
     <input type="password" name="pw" id="pwForm" class="form-control" placeholder="Passwort" >
     <small><small><a href="register.php">Password vergessen</a></small></small>
-    <span class="error"><?php echo $error; ?></span>
    <input type="submit" name="login"  class="form-control input-sm" value="Anmelden">
     <p><small>Du hast noch kein Konto? - <a href="register.php">Neues Konto erstellen</a></small></p>
   </form>

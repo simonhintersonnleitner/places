@@ -22,7 +22,7 @@ include 'template/menue.php';
 ?>
 
 <div class="container">
-  <div class="row">
+
     <h1>Hallo <?php echo $_SESSION['firstname'];?>,</h1>
     <div class='col-md-5'>
       <p>schön dass du deine Lieblingorte mit anderen Teilen willst. Beginne am Besten gleich damit neue Orte einzutragen.</p>
@@ -36,8 +36,8 @@ include 'template/menue.php';
           <input type="submit" name="edit"  class="btn btn-default form-control" value="mein Profil bearbeiten">
         </form></p>
       </div>
-
     </div>
+    <div class="container">
     <div class="row">
      <h3>kürzlich geteilte Orte</h3>
      <?php foreach ($response as $place):?>

@@ -52,10 +52,11 @@ include 'template/menue.php';
     <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
     <input type="submit" name="cropUser"  class="form-control input-sm" value="Bildausschnitt ändern">
   </form>
-<?php endif;?>
-  <br>
-<?php   endif; ?>
+  <?php endif;?>
+<?php endif; ?>
 </div>
+</div>
+<div class="container">
   <div class="row">
      <div class="col-md-4">
       <?php
@@ -81,20 +82,18 @@ include 'template/menue.php';
     </p>
     </div>
   </div>
+    </div>
+  <div class="container">
   <div class="row">
   <h3><?php echo $response->firstname;?>'s Lieblingsorte</h3>
    <a href="map.php?userId=<?php echo  $id; ?>" class="btn btn-default btn-sm">Mapansicht</a>
    <a href="places.php?userId=<?php echo  $id; ?>" class="btn btn-default btn-sm">Gitteransicht</a>
    <br><br>
-  <table class="table">
+<div class="list-group">
     <?php foreach ($response1 as $place):?>
-    <tr>
-      <td>
-         <a href="place.php?id=<?php echo $place->id; ?>"><?php echo $place->name;?></a>
-      </td>
-    </tr>
+         <a href="place.php?id=<?php echo $place->id; ?>" class="list-group-item" ><?php echo $place->name;?></a>
   <?php endforeach;?>
-  </table>
+  </div>
 </div>
 </div>
 <?php

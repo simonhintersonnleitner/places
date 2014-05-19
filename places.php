@@ -65,29 +65,26 @@ include 'template/menue.php';
 <?php endif;?>
 
 <?php if($view == 2):/*ListView*/?>
-  <table class="table">
+<div class="list-group">
     <?php foreach ($response as $place):?>
-    <tr>
-      <td>
-       <a href="place.php?id=<?php echo $place->id; ?>"><?php echo $place->name;?>
-       </td>
+
+       <a href="place.php?id=<?php echo $place->id; ?>" class="list-group-item"><?php echo $place->name;?>
+
        <?php if($response1->isAdmin != 0 ||  $place->userId == $_SESSION['id']):?>
-       <td>
+
         <form action="placeDelete.php" method="post" class="form-inline">
           <input type="hidden" name="id" value='<?php echo $place->id; ?>'>
-          <input type="submit" name="del"  class="form-control input-sm" value="löschen">
+          <input type="submit" name="del"  class="btn btn-default btn-xs" value="löschen">
         </form>
-      </td>
-      <td>
         <form action="editPlace.php" method="post" class="form-inline">
           <input type="hidden" name="id" value='<?php echo $place->id; ?>'>
-          <input type="submit" name="edit"  class="form-control input-sm" value="bearbeiten">
+          <input type="submit" name="edit"  class="btn btn-default btn-xs" value="bearbeiten">
         </form>
-      </td>
+
     <?php endif; ?>
-  </tr>
+</a>
 <?php endforeach; ?>
-</table>
+</div>
 <?php endif;?>
 
 </div>

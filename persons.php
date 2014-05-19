@@ -62,31 +62,30 @@ include 'template/menue.php';
 <?php endif;?>
 
 <?php if($view == 2):/*ListView*/?>
-<div class="table-responsive">
-  <table class="table">
+
+<div class="list-group">
     <?php foreach ($response as $user):?>
-    <tr>
-      <td>
-        <a href='person.php?id=<?php echo $user->id; ?>'><?php echo $user->firstname." ".$user->lastname;?>
-        </td>
+
+       <a href='person.php?id=<?php echo $user->id; ?>' class="list-group-item"><?php echo $user->firstname." ".$user->lastname;?><span class="badge"><?php echo getPlaceCountByUserId($user->id,$dbh);?></span>
+
         <?php if($response1->isAdmin != 0 || $response1->id == $user->id):?>
-        <td>
+
           <form action="personDelete.php" method="post" class="form-inline">
             <input type="hidden" name="id" value='<?php echo $user->id; ?>'>
-            <input type="submit" name="del"  class="form-control input-sm" value="löschen">
+            <input type="submit" name="del"  class="btn  btn-default btn-xs" value="löschen">
           </form>
-        </td>
-        <td>
+
           <form action="editPerson.php" method="post" class="form-inline">
             <input type="hidden" name="id" value='<?php echo $user->id; ?>'>
-            <input type="submit" name="edit"  class="form-control input-sm" value="bearbeiten">
+            <input type="submit" name="edit"  class="btn btn-default btn-xs" value="bearbeiten">
           </form>
-        </td>
+
         <?php endif; ?>
-    </tr>
+</a>
+
     <?php endforeach; ?>
-  </table>
 </div>
+
 <?php endif;?>
 
 

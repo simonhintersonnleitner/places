@@ -14,7 +14,7 @@ if(isset($_POST["login"]))
   if($response != null)
   {
     //if(password_verify($_POST["pw"], $response->pw))
-    if(verifiyPw($_POST["pw"], $response->pw))
+    if(verifyPw($_POST["pw"], $response->pw))
     {
       $_SESSION['firstname'] = $response->firstname;
       $_SESSION['id'] = $response->id;

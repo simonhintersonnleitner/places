@@ -17,6 +17,8 @@ try {
   die("Problem connecting to database $DB_NAME as $DB_USER: " . $e->getMessage() );
 }
 
+
+
 function checkLogin()
 {   //if user is not logged in - redirect to login.php
     if(!isset($_SESSION['id']))
@@ -71,6 +73,7 @@ function cleanFilename($filename)
   return preg_replace($toReplace, $replace, $filename);
 }
 
+//upload functions
 function uploadPlaceImage($newId,$userId)
 {
    $folder ="./img/upload/";
@@ -130,33 +133,6 @@ function uploadProfileImage($userId)
 }
 
 
-function getAllCategories($dbh)
-{
-  try
-  {
-    return $dbh->query("SELECT * FROM categories;")->fetchAll();
-  }
-  catch (Exception $e)
-  {
-    die("Problem with fetching Data " . $e->getMessage() );
-  }
-}
-
-function getUserNameById($dbh,$id)
-{
-  try
-  {
-    $stm = $dbh->prepare("SELECT firstname,lastname FROM user WHERE id = ?");
-    $stm->execute(array($id));
-    $response1 = $stm->fetch();
-    return $response1->firstname." ".$response1->lastname;
-  }
-  catch (Exception $e)
-  {
-    die("Problem with fetching Data " . $e->getMessage() );
-  }
-}
-
 function getCroppedPlaceImageNameById($id,$dbh)
 {
   $place = getPlaceData($id,$dbh);
@@ -164,12 +140,17 @@ function getCroppedPlaceImageNameById($id,$dbh)
   return $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
 }
 
+
+
 function getDateFromTimeStamp($timeStamp)
 {
   $value = $timeStamp;
   $datetime = new DateTime($value);
   return $datetime->format('d.m.Y');
 }
+
+
+//database querys functions
 
 function getPlaceCountByUserId($id,$dbh)
 {
@@ -188,6 +169,17 @@ function getPlaceCountByUserId($id,$dbh)
   }
 }
 
+function getAllCategories($dbh)
+{
+  try
+  {
+    return $dbh->query("SELECT * FROM categories;")->fetchAll();
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
 
 function getPlaceData($id,$dbh)
 {
@@ -207,10 +199,17 @@ function getPlaceData($id,$dbh)
 
 function getUserData($id,$dbh)
 {
-  $stm = $dbh->prepare("SELECT * FROM user WHERE id = ?");
-  $stm->execute(array($id));
-  $response = $stm->fetch();
-  return $response;
+  try
+  {
+    $stm = $dbh->prepare("SELECT * FROM user WHERE id = ?");
+    $stm->execute(array($id));
+    $response = $stm->fetch();
+    return $response;
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
 }
 
 function getAllPlacesByUserID($id,$dbh)
@@ -258,7 +257,26 @@ function getFirstnameById($dbh,$id)
   }
 }
 
-function hashPassswortSecure($pw)
+
+
+function getUserNameById($dbh,$id)
+{
+  try
+  {
+    $stm = $dbh->prepare("SELECT firstname,lastname FROM user WHERE id = ?");
+    $stm->execute(array($id));
+    $response1 = $stm->fetch();
+    return $response1->firstname." ".$response1->lastname;
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
+
+
+//hashing functions
+function hashPasswordSecure($pw)
 {
   $cost = 10;
   $salt = strtr(base64_encode(mcrypt_create_iv(16, MCRYPT_DEV_URANDOM)), '+', '.');
@@ -266,7 +284,7 @@ function hashPassswortSecure($pw)
   return crypt($pw, $salt);
 }
 
-function verifiyPw($pw,$pwFromDB)
+function verifyPw($pw,$pwFromDB)
 {
   if(crypt($pw, $pwFromDB) === $pwFromDB)
   {
@@ -276,11 +294,9 @@ function verifiyPw($pw,$pwFromDB)
 }
 
 /**
- *
  * @author    Patrick W.
  * @website    http://www.it-talent.de
  * @date    02/06/2013
- *<div></div>
  **/
  function resize($path, $new_path, $new_width, $new_height, $cut, $size = false) {
     /*

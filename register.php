@@ -41,15 +41,14 @@ if(isset($_POST["register"]))
   {
 
     $pw = $_POST['pw'];
-    //$hashOfPw = password_hash($pw, PASSWORD_DEFAULT);
-    $hashOfPw = hashPassswortSecure($pw);
+    //$hashOfPw = password_hash($pw, PASSWORD_DEFAULT); requirdes
+    $hashOfPw = hashPasswordSecure($pw);
 
     $stm = $dbh->prepare("INSERT INTO user (firstname,lastname,email,pw) VALUES (?,?,?,?);");
     $stm->execute(array($firstname,$lastname,$email,$hashOfPw));
 
     header("Location: login.php");
     exit;
-
   }
   else
   {
@@ -59,7 +58,7 @@ if(isset($_POST["register"]))
 
 }
 
-function ceckEmailAvailability($emailToCheck,$dbh)
+function checkEmailAvailability($emailToCheck,$dbh)
 {
  $sth = $dbh->query("SELECT count(*) as anzahl FROM user WHERE email = '{$emailToCheck}'")->fetch();
   if($sth->anzahl == 0)
@@ -82,7 +81,7 @@ function checkValue ($value,$pos,$dbh)
       if($isAt === false)
         return "Keine gültige E-Mail-Adresse!";
       else
-         if(ceckEmailAvailability($value,$dbh))
+         if(checkEmailAvailability($value,$dbh))
           return "";
        else
         return "diese Adresse exsitiert bereits";

@@ -103,7 +103,6 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 <?php
 $count = 0;
 foreach ($response as $place):
-
 $toRemove = array("LatLng(", ")");
 $coordinates = str_replace($toRemove,"",$place->coordinates);
 ?>

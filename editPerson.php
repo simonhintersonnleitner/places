@@ -144,13 +144,13 @@ function checkPw($pw1,$pw2)
 }
 
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
 
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 

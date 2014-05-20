@@ -29,11 +29,11 @@ else
 
 }
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 
@@ -72,7 +72,7 @@ include 'template/menue.php';
 
 <script type="text/javascript">
 
-options = new Array(0,1,1,1,1,1,1,1,1,1);
+options = new Array(0,1,1,1,1,1,1,1,1,1,1);
 
 for (var i = 1; i <= <?php echo  $count; ?>; i++) {
  var h = document.getElementById(i);
@@ -98,7 +98,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 //creat an array for each group of markers
-  for (var i = 1; i <= 9; i++) {
+  for (var i = 1; i <= 10; i++) {
     this["group"+i] = new Array();
 }
 
@@ -111,7 +111,7 @@ $coordinates = str_replace($toRemove,"",$place->coordinates);
 var i = group<?php echo $place->category;?>.length;
 
 group<?php echo $place->category;?>[i] = new L.Marker([<?php echo $coordinates; ?>], {draggable:false});
-group<?php echo $place->category;?>[i].bindPopup('<?php echo $place->name;?><br><a href="place.php?id=<?php echo $place->id; ?>"><img id=map-img src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=""></a>').openPopup();
+group<?php echo $place->category;?>[i].bindPopup("<?php echo $place->name;?><br><a href='place.php?id=<?php echo $place->id; ?>'><img id=map-img src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=''></a>").openPopup();
 
 <?php  $count ++;
 endforeach; ?>
@@ -121,7 +121,7 @@ function updateMarker()
 {
   var allGroups = new Array();
 
-for (var i = 1; i <= 9; i++)
+for (var i = 1; i <= 10; i++)
 {
     for(var x = 0; x < this["group"+i].length; x++)
     {

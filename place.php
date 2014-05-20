@@ -25,11 +25,11 @@ if(isset($_GET['id']))
 
 }
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 
@@ -81,7 +81,7 @@ include 'template/menue.php';
 <?php
 //remove LatLng( ) from coordinates
 $toRemove = array("LatLng(", ")");
-$coordinates = str_replace($toRemove, "",$response->coordinates);
+$coordinates = str_replace($toRemove,"",$response->coordinates);
 ?>
 
 var map= L.map('map').setView([<?php echo $coordinates;?>], 14);
@@ -96,8 +96,7 @@ marker.bindPopup('<?php echo $response->name;?>').openPopup();
 
 
 function onMapClick(e) {
-
-  map.setView([<?php echo $coordinates;?>], 14);
+  map.setView([<?php echo $coordinates; ?>], 14);
 }
 
 

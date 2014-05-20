@@ -15,7 +15,7 @@ else
 }
 
 
-$stm = $dbh->query("SELECT * FROM user;");
+$stm = $dbh->query("SELECT * FROM user WHERE isActive = 1;");
 $response = $stm->fetchAll();
 
 $userId = $_SESSION['id'];
@@ -23,11 +23,11 @@ $stm = $dbh->query("SELECT * FROM user WHERE id = $userId;");
 $response1 = $stm->fetch();
 
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 

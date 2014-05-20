@@ -1,10 +1,9 @@
 <?php
-include 'system/php/functions.php';
+
+include "system/php/functions.php";
+
 
 $pagetitle = "Meine Lieblingsorte";
-
-
-
 
 
 $error = "";
@@ -45,12 +44,11 @@ if(isset($_POST["login"]))
   }
 }
 
-include 'template/beginheader.php';
+include  "template/beginHeader.php";
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/login.css">
 <?php
-include 'template/endheader.php';
-//
+include  "template/endHeader.php";
 ?>
 
 

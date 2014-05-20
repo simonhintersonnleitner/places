@@ -1,4 +1,5 @@
 <?php
+
 include 'system/php/functions.php';
 checklogin();
 
@@ -27,11 +28,10 @@ else
 
 $response1 = getUserData($_SESSION['id'],$dbh);
 
-include 'template/beginheader.php';
-?>
+include 'template/beginHeader.php'; ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 
@@ -55,8 +55,11 @@ include 'template/menue.php';
   ?>
   <div class='col-md-3'>
     <h3><?php echo $place->name; ?></h3>
+    <?php $class ="c".$place->category; ?>
+    <?php $img = "img/icons/".$place->category.".png"; ?>
     <small>von <a href="person.php?id=<?php echo  $place->userId; ?>"><?php echo getUserNameById($dbh,$place->userId); ?></a></small>
-    <a href="place.php?id=<?php echo $place->id; ?>"><img src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=""></a>
+    <div class="<?php echo$class; ?> icon "><img src="<?php echo $img; ?>" alt=""></div>
+    <a href="place.php?id=<?php echo $place->id; ?>"><img class="<?php echo $class; ?>" src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=""></a>
 
   </div>
 
@@ -71,7 +74,6 @@ include 'template/menue.php';
        <a href="place.php?id=<?php echo $place->id; ?>" class="list-group-item"><?php echo $place->name;?>
 
        <?php if($response1->isAdmin != 0 ||  $place->userId == $_SESSION['id']):?>
-
         <form action="placeDelete.php" method="post" class="form-inline">
           <input type="hidden" name="id" value='<?php echo $place->id; ?>'>
           <input type="submit" name="del"  class="btn btn-default btn-xs" value="löschen">

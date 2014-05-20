@@ -1,10 +1,8 @@
 
 body {
-    /*background-image: url("../../img/main_back1.jpg");
-   background-position: center 10%;
-   background-repeat: no-repeat;
-   */
    font-family: 'Muli', sans-serif;
+   font-weight: 400;
+   height: 100%;
 }
 
 a{
@@ -39,10 +37,6 @@ h1,h2,h3,h4,h5
     background: #fff;
     max-width: 600px;
     border: 1px solid #DDD;
-   /* background: -moz-linear-gradient(top, #EEE, #FFF);
-    background: -webkit-linear-gradient(top, #eee, #fff);
-    background: -ms-linear-gradient(top, #eee, #fff);
-    background: -o-linear-gradient(top, #eee, #fff);*/
     box-shadow: 1px 2px 4px rgba(0, 0, 0, .2);
     margin: 5px;
     margin-left: 0px;
@@ -71,19 +65,97 @@ h1,h2,h3,h4,h5
     margin-left: 5px;
     margin-bottom: 4px;
 }
-.col-md-3 img {
-   border-top: 1px dotted #DDD;
+.col-md-3 img{
+   border-top-width: 1px;
+   border-top-style: dotted;
    width: 100%;
    height: auto;
    overflow: hidden;
    max-width: 100%;
    opacity:0.8;
    filter:alpha(opacity=8); /* For IE8 and earlier */
+   position: relative;
+   top: 0px;
+    z-index: 50;
+
 }
 .col-md-3 img:hover {
-  opacity:1;
-  filter:alpha(opacity=100); /* For IE8 and earlier */
+    opacity:1;
+    filter:alpha(opacity=100); /* For IE8 and earlier */
 }
+.col-md-3 .icon {
+    position: absolute;
+    bottom: 10px;
+    left:10px;
+    z-index: 100;
+    width:22px;
+    height:22px;
+    border-radius:22px;
+    z-index: 100;
+    padding-left: 3px;
+}
+.col-md-3 .icon img {
+    border-top: none;
+    width: 17px;
+    -webkit-filter: invert(100%);
+     opacity:1;
+    filter:alpha(opacity=100);
+
+}
+
+.c1
+{
+    background-color: #aa00ff;
+    border-top-color: #aa00ff;
+}
+.c2
+{
+    background-color: #00aba9;
+     border-top-color: #00aba9;
+}
+.c3
+{
+    background-color: #fa6800;
+    border-top-color: #fa6800;
+}
+.c4
+{
+    background-color: #d80073;
+    border-top-color: #d80073;
+}
+.c5
+{
+    background-color: #825a2c;
+    border-top-color: #825a2c;
+
+}
+.c6
+{
+     background-color: #6a7f00;
+     border-top-color: #6a7f00;
+}
+.c7
+{
+     background-color: #f0a30a;
+     border-top-color: #f0a30a;
+}
+.c8
+{
+    background-color: #1ba1e2;
+    border-top-color: #1ba1e2;
+}
+.c9
+{
+    background-color: #d8c100;
+    border-top-color: #d8c100;
+}
+.c10
+{
+    background-color: #063c85;
+    border-top-color: #063c85;
+}
+
+
 .row {
     margin-left: 0px;
     margin-right: 0px;

@@ -76,14 +76,14 @@ if (isset($_POST['cropNow']))
 
 }
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <script src="system/jcrop/js/jquery.Jcrop.js"></script>
 <link rel="stylesheet" href="system/jcrop/css/jquery.Jcrop.css" type="text/css" />
 <link rel="stylesheet" type="text/css" href="system/css/crop.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 

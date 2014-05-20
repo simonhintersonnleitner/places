@@ -32,11 +32,11 @@ $response1 = $stm->fetchAll();
 $pagetitle = $response->firstname." ".$response->lastname;
 
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 <div class="container">

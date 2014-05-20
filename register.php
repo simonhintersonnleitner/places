@@ -111,12 +111,12 @@ function checkPw($pw1,$pw2)
     return "";
 }
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/login.css">
 <script type="text/javascript" src="system/js/formValidation.js"></script>
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 ?>
 
 

@@ -131,12 +131,12 @@ function checkValue ($value,$pos)
 
 
 
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 
@@ -174,7 +174,13 @@ return noError;
 
 }
 
-tinyMCE.init({
+
+
+$( document ).ready(function() {
+
+if ($( window ).width() > 600)
+  {
+    tinyMCE.init({
     selector:'textarea',
     menubar:false,
     theme: "modern",
@@ -184,8 +190,34 @@ tinyMCE.init({
    ],
     toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
     statusbar: false
-        //etc
 })
+
+  }
+
+  });
+
+
+
+$( window ).resize(function() {
+
+  if ($( window ).width() > 600)
+  {
+    tinyMCE.init({
+    selector:'textarea',
+    menubar:false,
+    theme: "modern",
+    skin: 'lightgray',
+    plugins: [
+         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+   ],
+    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+    statusbar: false
+})
+  }
+
+});
+
+
 
 </script>
 

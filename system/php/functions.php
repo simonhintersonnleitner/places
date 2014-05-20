@@ -1,4 +1,10 @@
 <?php
+
+if (!ini_get('display_errors')) {
+    ini_set('display_errors', '1');
+}
+
+
 $pagetitle = "";
 
 session_start();
@@ -32,6 +38,16 @@ function sendActivationEmail($mail,$firstname,$key)
 {
 try
   {
+
+    if($_SERVER['HTTP_HOST'] == "multimediatechnology.at")
+    {
+      $url = "http://".$_SERVER['HTTP_HOST']."/~fhs36097/mmp1";
+    }
+    else
+    {
+       $url = "http://".$_SERVER['HTTP_HOST']."/mmp1";
+    }
+
 $message = "
 <html>
 <head>
@@ -50,11 +66,11 @@ body {
 </style>
 <body>
 
-<img src='http://".$_SERVER['HTTP_HOST']."/mmp1/img/logo_new.png'>
+<img src='".$url."/img/logo_new.png'>
 <div style='width: 200px;margin: 0 auto'>
 <h1 style='font-family: sans-serif'>Hallo ".$firstname."</h1>
 <p style='font-family: sans-serif; font-size: 12px;'>Um die Anmeldung erfolgreich abzuschlie&szlig;en ist es erforderlich, dass du deine E-Mail-Adresse best&auml;tigst.
-  <br>Klicke dazu bitte auf den folgenden <a href='http://".$_SERVER['HTTP_HOST']."/mmp1/activation.php?key=".$key."'>Link</a></p>
+  <br>Klicke dazu bitte auf den folgenden <a href='".$url."/activation.php?key=".$key."'>Link</a></p>
 </div>
 </body>
 </html>";
@@ -131,31 +147,30 @@ function uploadPlaceImage($newId,$userId)
  $folder ="./img/upload/";
  $filename = cleanFilename(basename($_FILES['file']['name']));
 
-
- if(!file_exists($folder.$userId."/"))
- {
+  if(!file_exists($folder.$userId."/"))
+  {
   mkdir($folder.$userId."/");
-}
-       //delete all old images
-if(file_exists($folder.$userId."/".$newId."/"))
-{
+  }
+         //delete all old images
+  if(file_exists($folder.$userId."/".$newId."/"))
+  {
 
- removedir($folder.$userId."/".$newId."/");
-}
+   removedir($folder.$userId."/".$newId."/");
+  }
 
-mkdir($folder.$userId."/".$newId."/");
+  mkdir($folder.$userId."/".$newId."/");
 
-$uploaddir = $folder.$userId."/".$newId."/";
-$uploadfile = $uploaddir . $filename;
+  $uploaddir = $folder.$userId."/".$newId."/";
+  $uploadfile = $uploaddir . $filename;
 
-if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
-{
-  resize($uploadfile, $uploadfile, 1000, 500, false);
-}
-else
-{
-  echo "Problem beim Hochladen der Datei.\n";
-}
+    if (move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile))
+  {
+    resize($uploadfile, $uploadfile, 1000, 500, false);
+  }
+  else
+  {
+    echo "Problem beim Hochladen der Datei.\n";
+  }
 }
 
 function uploadProfileImage($userId)

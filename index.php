@@ -12,12 +12,12 @@ try{
 catch (Exception $e) {
   die("Problem with inserting Data!" . $e->getMessage() );
 }
-include 'template/beginheader.php';
+include 'template/beginHeader.php';
 ?>
 
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <?php
-include 'template/endheader.php';
+include 'template/endHeader.php';
 include 'template/menue.php';
 ?>
 
@@ -43,14 +43,16 @@ include 'template/menue.php';
      <?php foreach ($response as $place):?>
      <div class='col-md-3'>
       <h3><?php echo $place->name; ?></h3>
+      <?php $class ="c".$place->category; ?>
+      <?php $img = "img/icons/".$place->category.".png"; ?>
       <small>von <a href="person.php?id=<?php echo  $place->userId; ?>"><?php echo getUserNameById($dbh,$place->userId); ?></a></small>
       <?php
       $srcParts = pathinfo("img/upload/".$place->userId.'/'.$place->id.'/'.$place->cover);
       $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
       ?>
-      <a href="place.php?id=<?php echo $place->id; ?>"><img src="<?php echo  $newSrc; ?>" alt=""></a>
-
-    </div>
+      <div class="<?php echo $class; ?> icon "><img src="<?php echo $img; ?>" alt=""></div>
+      <a href="place.php?id=<?php echo $place->id; ?>"><img  class="<?php echo $class; ?>" src="<?php echo  $newSrc; ?>" alt=""></a>
+  </div>
 
   <?php endforeach; ?>
 

@@ -51,6 +51,8 @@ if (isset($_POST['cropNow']))
 
   $srcParts = pathinfo($src);
 
+
+
   if(strtolower($srcParts['extension']) == 'jpg')
      $img_r = imagecreatefromjpeg($src);
    else if (strtolower($srcParts['extension']) == 'png')
@@ -58,10 +60,30 @@ if (isset($_POST['cropNow']))
    else
       exit;
 
+   $size = getimagesize($src);
+   $width =  $size[0];
+   $height = $size[1];
+
+  $x = $_POST['x'];
+  $y = $_POST['y'];
+  $w = $_POST['w'];
+  $h = $_POST['h'];
+  $real_x = $_POST['real_x'];
+  $real_y = $_POST['real_y'];
+
+
+  //handle if pic is scaled eg. on mobile devices
+  $zoomFactor = $width / $real_x;
+  $x = intval($x) * $zoomFactor;
+  $y = intval($y) * $zoomFactor;
+  $w = intval($w) * $zoomFactor;
+  $h = intval($h) * $zoomFactor;
+
+ // echo  $x." ". $y." ". $w." ". $h;
+
   $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
 
-  imagecopyresampled($dst_r,$img_r,0,0,$_POST['x'],$_POST['y'],
-  $targ_w,$targ_h,$_POST['w'],$_POST['h']);
+  imagecopyresampled($dst_r,$img_r,0,0,$x,$y,$targ_w,$targ_h,$w,$h);
 
   $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
   if(strtolower($srcParts['extension']) == 'jpg')
@@ -103,7 +125,17 @@ include 'template/menue.php';
     $('#y').val(c.y);
     $('#w').val(c.w);
     $('#h').val(c.h);
+  //or however you get a handle to the IMG
+  var width = $("#cropbox").width();
+  var height = $("#cropbox").height();
+
+    $('#real_x').val(width);
+    $('#real_y').val(height);
+
+  //alert("x: "+c.x+" y: "+c.y+" w: "+c.w+" h: "+c.h+"width: "+width+" height: "+height);
+
   };
+
 
   function checkCoords()
   {
@@ -112,17 +144,23 @@ include 'template/menue.php';
     return false;
   };
 
+
+
+
+
 </script>
 
 <div class="container">
     <h1>Bildausschnitt festlegen</h1>
-  <img src="<?php echo $src; ?>" id="cropbox">
+  <img  src="<?php echo $src; ?>" id="cropbox">
 
   <p><form action="crop.php" method="post" onsubmit="return checkCoords();">
       <input type="hidden" id="x" name="x" />
       <input type="hidden" id="y" name="y" />
       <input type="hidden" id="w" name="w" />
       <input type="hidden" id="h" name="h" />
+      <input type="hidden" id="real_x" name="real_x" />
+      <input type="hidden" id="real_y" name="real_y" />
       <input type="submit" name="cropNow" value="Fertig" class="btn btn-default" />
   </form></p>
 </div>

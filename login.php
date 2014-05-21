@@ -57,7 +57,7 @@ include  "template/endHeader.php";
 
 <?php if(isset($_GET['msgId'])):?>
   <?php if($_GET['msgId'] == 1):?>
-      <div class="alert alert-info"><small><b>Email erfolgreich versendet!</b><br>Bitte checke deine Mailbox (auch den Spamordner) und bestätige
+      <div class="alert alert-info"><small><b>Aktivierungsemail erfolgreich versendet!</b><br>Bitte checke deine Mailbox (auch den Spamordner) und bestätige
       deine Emailadresse mit dem darin enthaltenen Link.</small></div>
   <?php endif;?>
   <?php if($_GET['msgId'] == 2):?>
@@ -65,6 +65,15 @@ include  "template/endHeader.php";
   <?php endif;?>
   <?php if($_GET['msgId'] == 3):?>
       <div class="alert alert-danger"><small><b>Aktvierung nicht erfolgreich</b><br>Entweder dein Konto wurde schon aktviert oder dein Aktvierungscode ist ungültig.</small></div>
+  <?php endif;?>
+  <?php if($_GET['msgId'] == 4):?>
+      <div class="alert alert-info"><small><b>Email erfolgreich versendet!</b><br>Bitte bestätige die Passwortänderung mit dem Link in deiner Email<br></small></div>
+  <?php endif;?>
+   <?php if($_GET['msgId'] == 5):?>
+      <div class="alert alert-success"><small><b>Passwort erfolgreich geändert!</b><br>Du kannst dich nun mit deinem neuen Passwort anmelden.<br></small></div>
+  <?php endif;?>
+   <?php if($_GET['msgId'] == 6):?>
+      <div class="alert alert-danger"><small><b>Änderung war nicht erfolgreich!</b><br>Dein Key ist ungültig. Versuche es bitte nocheinmal.<br></small></div>
   <?php endif;?>
 <?php else:?>
   <?php if($error == ""):?>
@@ -76,7 +85,7 @@ include  "template/endHeader.php";
   <form class="form-signin center" role="form" action="login.php" method="post">
     <input type="email" name="email" class="form-control " placeholder="Email-Adresse">
     <input type="password" name="pw" id="pwForm" class="form-control" placeholder="Passwort" >
-    <small><small><a href="register.php">Password vergessen</a></small></small>
+    <small><small><a href="requestPasswordChange.php">Passwort vergessen</a></small></small>
    <input type="submit" name="login"  class="form-control input-sm" value="Anmelden">
     <p><small>Du hast noch kein Konto? - <a href="register.php">Neues Konto erstellen</a></small></p>
   </form>

@@ -212,7 +212,11 @@ function chkForm ()
   return noError;
 }
 
-tinyMCE.init({
+$( document ).ready(function() {
+
+if ($( window ).width() > 600)
+  {
+    tinyMCE.init({
     selector:'textarea',
     menubar:false,
     theme: "modern",
@@ -222,9 +226,32 @@ tinyMCE.init({
    ],
     toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
     statusbar: false
-        //etc
 })
 
+  }
+
+  });
+
+
+
+$( window ).resize(function() {
+
+  if ($( window ).width() > 600)
+  {
+    tinyMCE.init({
+    selector:'textarea',
+    menubar:false,
+    theme: "modern",
+    skin: 'lightgray',
+    plugins: [
+         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+   ],
+    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+    statusbar: false
+})
+  }
+
+});
 
 </script>
 

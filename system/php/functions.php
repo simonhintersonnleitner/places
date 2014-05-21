@@ -264,6 +264,7 @@ function getCroppedPlaceImageNameById($id,$dbh)
 {
   $place = getPlaceData($id,$dbh);
   $srcParts = pathinfo("img/upload/".$place->userId.'/'.$place->id.'/'.$place->cover);
+  $srcParts['filename'] = str_replace(" ", "%", $srcParts['filename']);
   return $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
 }
 

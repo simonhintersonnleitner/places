@@ -56,6 +56,10 @@ include 'template/menue.php';
 <?php endif; ?>
 </div>
 <div class="row">
+  <div class="col-md-11 colorline c1">
+  </div>
+</div>
+<div class="row">
   <div class="col-md-11">
     <p ><?php echo $response->description; ?></p>
   </div>

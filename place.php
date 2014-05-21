@@ -55,8 +55,15 @@ include 'template/menue.php';
   </div><br><br>
 <?php endif; ?>
 </div>
+
+ <?php $class ="c".$response->category; ?>
+ <?php $img = "img/icons/".$response->category.".png"; ?>
 <div class="row">
-  <div class="col-md-11 colorline c1">
+  <div class="col-md-10">
+       <div class="<?php echo $class; ?> icon ">
+        <img src="<?php echo $img; ?>" alt="">
+      </div>
+      <h5><?php echo getCategorieNameById($dbh,$response->category); ?></h5>
   </div>
 </div>
 <div class="row">

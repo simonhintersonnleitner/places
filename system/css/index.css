@@ -103,7 +103,34 @@ h1,h2,h3,h4,h5
 
 }
 
+.col-md-10{
+    min-height: 32px;
+}
 
+.col-md-10 .icon {
+    position: absolute;
+    bottom: 5px;
+    left:5px;
+    z-index: 100;
+    width:25px;
+    height:25px;
+    border-radius:25px;
+    z-index: 100;
+    padding-left: 3px;
+     padding-top: 1px;
+}
+.col-md-10 .icon img {
+    border-top: none;
+    width: 20px;
+    -webkit-filter: invert(100%);
+     opacity:1;
+    filter:alpha(opacity=100);
+
+}
+
+.col-md-10 h5 {
+    padding-left: 25px;
+}
 
 .c1
 {

@@ -308,6 +308,36 @@ function getAllCategories($dbh)
     die("Problem with fetching Data " . $e->getMessage() );
   }
 }
+function getCategorieNameById($dbh,$id)
+{
+  try
+  {
+    $stm = $dbh->prepare("SELECT category FROM categories WHERE id = ?;");
+    $stm->execute(array($id));
+    $response = $stm->fetch();
+    return  $response->category;
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
+
+function getUserNameById($dbh,$id)
+{
+  try
+  {
+    $stm = $dbh->prepare("SELECT firstname,lastname FROM user WHERE id = ?");
+    $stm->execute(array($id));
+    $response1 = $stm->fetch();
+    return $response1->firstname." ".$response1->lastname;
+  }
+  catch (Exception $e)
+  {
+    die("Problem with fetching Data " . $e->getMessage() );
+  }
+}
+
 
 function getPlaceData($id,$dbh)
 {
@@ -385,20 +415,6 @@ function getFirstnameById($dbh,$id)
 
 
 
-function getUserNameById($dbh,$id)
-{
-  try
-  {
-    $stm = $dbh->prepare("SELECT firstname,lastname FROM user WHERE id = ?");
-    $stm->execute(array($id));
-    $response1 = $stm->fetch();
-    return $response1->firstname." ".$response1->lastname;
-  }
-  catch (Exception $e)
-  {
-    die("Problem with fetching Data " . $e->getMessage() );
-  }
-}
 
 
 //hashing functions

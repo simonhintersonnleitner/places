@@ -15,7 +15,7 @@ else
 }
 
 
-$stm = $dbh->query("SELECT * FROM user WHERE isActive = 1;");
+$stm = $dbh->query("SELECT * FROM user WHERE isActive = 1 ORDER BY  cover DESC;");
 $response = $stm->fetchAll();
 
 $userId = $_SESSION['id'];

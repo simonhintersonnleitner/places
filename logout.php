@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 // Löschen aller Session-Variablen.
 $_SESSION = array();
 

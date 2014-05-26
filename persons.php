@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include 'system/php/functions.php';
 checklogin();
 
@@ -25,7 +32,9 @@ $response1 = $stm->fetch();
 
 include 'template/beginHeader.php';
 ?>
+
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
+
 <?php
 include 'template/endHeader.php';
 include 'template/menue.php';
@@ -39,31 +48,30 @@ include 'template/menue.php';
 </div>
 
 <div class="container">
-<?php if($view == 1): /*Gridview*/?>
-  <?php foreach ($response as $user):?>
-    <div class='col-md-3'>
- <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
+  <?php if($view == 1): /*Gridview*/?>
+    <?php foreach ($response as $user):?>
+      <div class='col-md-3'>
+        <h3><?php echo $user->firstname." ".$user->lastname; ?></h3>
         <small><a href="places.php?userId=<?php echo  $user->id; ?>"><?php  $count = getPlaceCountByUserId($user->id,$dbh);  echo  ($count == 1) ? $count." Ort" : $count." Orte" ;?> veröffentlicht</a> </small>
-      <?php
-        if($user->cover != null)
-        {
-          $srcParts = pathinfo("img/upload/".$user->id.'/'.$user->cover);
-          $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
-        }
-        else
-        {
-          $newSrc = "img/upload/placeholder.png";
-        }
-       ?>
-      <a href="person.php?id=<?php echo $user->id; ?>"><img src="<?php echo  $newSrc ; ?>" alt=""></a>
+          <?php
+            if($user->cover != null)
+            {
+              $srcParts = pathinfo("img/upload/".$user->id.'/'.$user->cover);
+              $newSrc = $srcParts['dirname'] . '/' . $srcParts['filename'] . '_croped.'. $srcParts['extension'];
+            }
+            else
+            {
+              $newSrc = "img/upload/placeholder.png";
+            }
+          ?>
+        <a href="person.php?id=<?php echo $user->id; ?>"><img src="<?php echo  $newSrc ; ?>" alt=""></a>
+      </div>
+    <?php endforeach; ?>
+  <?php endif;?>
 
-   </div>
-  <?php endforeach; ?>
-<?php endif;?>
+  <?php if($view == 2):/*ListView*/?>
 
-<?php if($view == 2):/*ListView*/?>
-
-<div class="list-group">
+  <div class="list-group">
     <?php foreach ($response as $user):?>
 
        <a href='person.php?id=<?php echo $user->id; ?>' class="list-group-item"><?php echo $user->firstname." ".$user->lastname;?><span class="badge"><?php echo getPlaceCountByUserId($user->id,$dbh);?></span>
@@ -81,21 +89,11 @@ include 'template/menue.php';
           </form>
 
         <?php endif; ?>
-</a>
+      </a>
 
     <?php endforeach; ?>
+  </div>
+  <?php endif;?>
 </div>
 
-<?php endif;?>
-
-
-
-
-</div>
-</div>
-
-
-
-<?php
-include 'template/footer.php';
-?>
+<?php include 'template/footer.php';?>

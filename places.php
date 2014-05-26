@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include 'system/php/functions.php';
 checklogin();
 
@@ -45,15 +51,14 @@ include 'template/menue.php';
     <h3>Alle Lieblingsorte</h3>
     <a href="places.php?view=1" class="btn btn-default  btn-sm">Gitteransicht</a>
     <a href="places.php?view=2" class="btn btn-default  btn-sm">Tabellenansicht</a>
-   <a href="map.php" class="btn btn-default  btn-sm">Mapansicht</a>
+    <a href="map.php" class="btn btn-default  btn-sm">Mapansicht</a>
   <?php endif;?>
    <a href="newPlace.php" class="btn btn-default btn-sm">neuen Ort eintragen</a>
 </div>
 
 <div class="container">
   <?php if($view == 1): /*Gridview*/?>
-  <?php foreach ($response as $place):
-  ?>
+  <?php foreach ($response as $place):?>
   <div class='col-md-3'>
     <h3><?php echo $place->name; ?></h3>
     <?php $class ="c".$place->category; ?>
@@ -61,19 +66,14 @@ include 'template/menue.php';
     <small>von <a href="person.php?id=<?php echo  $place->userId; ?>"><?php echo getUserNameById($dbh,$place->userId); ?></a></small>
     <div class="<?php echo$class; ?> icon "><img src="<?php echo $img; ?>" alt=""></div>
     <a href="place.php?id=<?php echo $place->id; ?>"><img class="<?php echo $class; ?>" src= <?php echo getCroppedPlaceImageNameById($place->id,$dbh); ?> alt=""></a>
-
   </div>
+  <?php endforeach; ?>
+  <?php endif;?>
 
-<?php endforeach; ?>
-
-<?php endif;?>
-
-<?php if($view == 2):/*ListView*/?>
-<div class="list-group">
+  <?php if($view == 2):/*ListView*/?>
+  <div class="list-group">
     <?php foreach ($response as $place):?>
-
        <a href="place.php?id=<?php echo $place->id; ?>" class="list-group-item"><?php echo $place->name;?>
-
        <?php if($response1->isAdmin != 0 ||  $place->userId == $_SESSION['id']):?>
         <form action="placeDelete.php" method="post" class="form-inline">
           <input type="hidden" name="id" value='<?php echo $place->id; ?>'>
@@ -83,12 +83,12 @@ include 'template/menue.php';
           <input type="hidden" name="id" value='<?php echo $place->id; ?>'>
           <input type="submit" name="edit"  class="btn btn-default btn-xs" value="bearbeiten">
         </form>
+      <?php endif; ?>
+      </a>
+    <?php endforeach; ?>
+  </div>
+  <?php endif;?>
 
-    <?php endif; ?>
-</a>
-<?php endforeach; ?>
 </div>
-<?php endif;?>
 
-</div>
 <?php include 'template/footer.php';?>

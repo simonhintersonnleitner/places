@@ -64,9 +64,10 @@ a:hover{
   body
   {
    background-image: url("../../img/login_back1.jpg");
-   background-position: center 10%;
+   /*background-position: center 10%;*/
    background-repeat: no-repeat;
-   background-size: cover;
+   /*background-size: cover;*/
+
   }
 }
 

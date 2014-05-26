@@ -1,9 +1,16 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include 'system/php/functions.php';
 checklogin();
 
 
-$pagetitle = "Meine Lieblingsorte";
+$pagetitle = "Ort bearbeiten";
 
 $name = "";
 $description ="";
@@ -67,47 +74,45 @@ if(isset($_POST['submit']))
 
   $public = isset($_POST['public']);
 
-
   $error1 = checkValue($name,1);
   $error2 = checkValue($description,2);
   $error3 = checkValue($latlang,3);
-
-
 
   $id = $_SESSION['placeID'];
 
   if($error1 == "" && $error2 == "" && $error3 == "" &&  $error4 == "")
   {
-    try{
+    try
+    {
       echo $id;
       $sth = $dbh->prepare("UPDATE places SET
         name = ?, description = ?, category = ?, coordinates = ?, public = ? , cover = ?
         WHERE id = ?;");
       $sth->execute(array($name,$description,$category,$latlang,$public,$cover,$id));
+
       if($newImage)
       {
         uploadPlaceImage($id,$userId);
       }
     }
-      catch (Exception $e) {
-        die("Problem with updating Data!" . $e->getMessage() );
-      }
+    catch (Exception $e)
+    {
+      die("Problem with updating Data!" . $e->getMessage() );
+    }
 
-      if($newImage)
-      {
-         $_SESSION['placeId'] = $id;
-         header("Location: crop.php");
-      }
-      else
-      {
-       header("Location: place.php?id={$id}");
-     }
-     exit;
-
-
-   }
-
- }
+    if($newImage)
+    {
+      $_SESSION['placeId'] = $id;
+      header("Location: crop.php");
+      exit;
+    }
+    else
+    {
+      header("Location: place.php?id={$id}");
+      exit;
+    }
+  }
+}
 
 
 
@@ -125,16 +130,24 @@ function checkValue ($value,$pos)
     }
   }
   else
+  {
     return "";
+  }
 }
-
-
 
 
 include 'template/beginHeader.php';
 ?>
+
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+
+
+<link rel="stylesheet" href="system/leaflet/leaflet.css" />
+<link rel="stylesheet" href="system/leaflet/Control.OSMGeocoder.css" />
+<script src="system/leaflet/leaflet.js"></script>
+<script src="system/leaflet/Control.OSMGeocoder.js"></script>
+
 <?php
 include 'template/endHeader.php';
 include 'template/menue.php';
@@ -159,18 +172,18 @@ function chkForm () {
     }
   }
 
-if( document.getElementById("input4").value != "")
-{
-  var ext = document.getElementById("input4").value.split(".");
-
-  if(ext[ext.length-1].toLowerCase()  != "png" && ext[ext.length-1].toLowerCase() != "jpg")
+  if( document.getElementById("input4").value != "")
   {
-    document.getElementById("4").innerHTML = "ungültige Dateiendung!";
-    noError = false;
-  }
+    var ext = document.getElementById("input4").value.split(".");
 
-}
-return noError;
+    if(ext[ext.length-1].toLowerCase()  != "png" && ext[ext.length-1].toLowerCase() != "jpg")
+    {
+      document.getElementById("4").innerHTML = "ungültige Dateiendung!";
+      noError = false;
+    }
+
+  }
+  return noError;
 
 }
 
@@ -178,23 +191,23 @@ return noError;
 
 $( document ).ready(function() {
 
-if ($( window ).width() > 600)
+  if ($( window ).width() > 600)
   {
     tinyMCE.init({
-    selector:'textarea',
-    menubar:false,
-    theme: "modern",
-    skin: 'lightgray',
-    plugins: [
-         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
-   ],
-    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
-    statusbar: false
-})
+      selector:'textarea',
+      menubar:false,
+      theme: "modern",
+      skin: 'lightgray',
+      plugins: [
+      "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+      ],
+      toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+      statusbar: false
+    })
 
   }
 
-  });
+});
 
 
 
@@ -203,20 +216,19 @@ $( window ).resize(function() {
   if ($( window ).width() > 600)
   {
     tinyMCE.init({
-    selector:'textarea',
-    menubar:false,
-    theme: "modern",
-    skin: 'lightgray',
-    plugins: [
-         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
-   ],
-    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
-    statusbar: false
-})
+      selector:'textarea',
+      menubar:false,
+      theme: "modern",
+      skin: 'lightgray',
+      plugins: [
+      "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+      ],
+      toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+      statusbar: false
+    })
   }
 
 });
-
 
 
 </script>
@@ -244,29 +256,27 @@ $( window ).resize(function() {
       </div>
     </div>
 
-
     <div class="form-group">
       <label class="col-sm-2 control-label" for="category">Kategorie</label>
       <div class="col-sm-7">
-         <select class="form-control" name="category" id="category">
+        <select class="form-control" name="category" id="category">
           <?php
           $allCategories = getAllCategories($dbh);
           foreach ($allCategories as $cat):?>
           <option value="<?php echo $cat->id; ?>" <?php if($category ==  $cat->id) echo "selected"; ?> >  <?php echo $cat->category; ?></option>
-        <?php endforeach;?>
-      </select>
+          <?php endforeach;?>
+        </select>
+      </div>
     </div>
-  </div>
 
     <div class="form-group">
       <label for="input3" class="col-sm-2 control-label" >Karte</label>
       <div class="col-sm-7">
-        <div id="map">
-        </div>
+        <div id="map"></div>
         <p>zum Markieren einfach in die Map klicken.</p>
       </div>
       <input type="hidden" id="input3" name="latlang">
-       <span class="error-inline" id="3"><?php echo $error3; ?></span>
+      <span class="error-inline" id="3"><?php echo $error3; ?></span>
     </div>
 
     <div class="form-group">
@@ -297,11 +307,10 @@ $( window ).resize(function() {
 
 <script type="text/javascript">
 
-  <?php
-
+<?php
   $toRemove = array("LatLng(", ")");
   $coordinates = str_replace($toRemove,"",$response->coordinates);
-  ?>
+?>
 
 // create a map in the "map" div, set the view to a given place and zoom
 var map= L.map('map').setView([<?php echo $coordinates; ?>], 14);
@@ -310,24 +319,19 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
+marker = new L.Marker([<?php echo $coordinates; ?>], {draggable:true});
+map.addLayer(marker);
+
+document.getElementById('input3').value = marker.getLatLng();
+
+//set eventhanlder on marker that cooridnats will be updated when marker is moved
+marker.on('dragend', update);
 
 
-
-
-    marker = new L.Marker([<?php echo $coordinates; ?>], {draggable:true});
-    map.addLayer(marker);
-
-    document.getElementById('input3').value = marker.getLatLng();
-          //set eventhanlder on marker that cooridnats will be updated when marker is moved
-    marker.on('dragend', update);
-
-
- function update(e)
- {
-   document.getElementById('input3').value = marker.getLatLng();
- }
-
-
+function update(e)
+{
+  document.getElementById('input3').value = marker.getLatLng();
+}
 
 var osmGeocoder = new L.Control.OSMGeocoder();
 

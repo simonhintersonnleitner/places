@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include "system/php/functions.php";
 
 
@@ -18,7 +24,6 @@ if(isset($_POST["reset"]))
   $key = $_SESSION['key'];
 
   $error = checkPw($_POST["pw"],$_POST["pw_control"]);
-
 
   if($error == "")
   {
@@ -57,7 +62,6 @@ if(isset($_GET['key']))
 {
   $key = $_GET['key'];
   $_SESSION['key'] = $_GET['key'];
-
 }
 
 function checkPw($pw1,$pw2)
@@ -78,10 +82,10 @@ function checkPw($pw1,$pw2)
 
 include  "template/beginHeader.php";
 ?>
+
 <link rel="stylesheet" type="text/css" href="system/css/login.css">
-<?php
-include  "template/endHeader.php";
-?>
+
+<?php include  "template/endHeader.php"; ?>
 
 <script type="text/javascript">
 
@@ -97,12 +101,12 @@ function chkForm ()
 
   for (var i =  1; i <= 2; i++)
   {
-   if(document.getElementById("input"+[i]).value.length < 6)
-   {
-    document.getElementById("error").innerHTML = errorMsg1;
-    noError = false;
+    if(document.getElementById("input"+[i]).value.length < 6)
+    {
+      document.getElementById("error").innerHTML = errorMsg1;
+      noError = false;
+    }
   }
-}
 
 if(document.getElementById("input1").value != document.getElementById("input2").value)
 {
@@ -117,16 +121,13 @@ return noError;
 </script>
 
 <div class="container">
- <img src="img/logo_new.png">
+  <img src="img/logo_new.png" href="login.php">
 
-<?php if($error == ""): ?>
-   <div class="alert alert-info"><small>Gib bitte dein neues <b>Passwort</b> an.</small></div>
+  <?php if($error == ""): ?>
+     <div class="alert alert-info"><small>Gib bitte dein neues <b>Passwort</b> an.</small></div>
   <?php else:?>
-    <div class="alert alert-danger"><small><?php echo $error; ?></small></div>
-<?php endif;?>
-
-
-
+      <div class="alert alert-danger"><small><?php echo $error; ?></small></div>
+  <?php endif;?>
 
   <form class="form-signin center" role="form" action="resetPassword.php" method="post" onsubmit="return chkForm()">
     <input type="password" name="pw" id="input1" class="form-control " placeholder="Password">
@@ -136,6 +137,5 @@ return noError;
   </form>
 
 </div>
-<?php
-include 'template/footer.php';
-?>
+
+<?php include 'template/footer.php'; ?>

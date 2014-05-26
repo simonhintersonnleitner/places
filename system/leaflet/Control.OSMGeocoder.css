@@ -13,7 +13,8 @@
 }
 
 .leaflet-control-geocoder a {
-	background-image: url(/system/leaflet/images/geocoder.png);
+
+	background-image: url(/mmp1/system/leaflet/images/geocoder.png);
 	width: 36px;
 	height: 36px;
 }

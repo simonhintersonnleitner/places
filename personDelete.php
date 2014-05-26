@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 $pagetitle = "Löschen";
 
 include "system/php/functions.php";
@@ -21,10 +27,8 @@ if(isset($_POST['del']))
 include "header.php";
 
 ?>
-<article id="body" class="row">
+
 
 <p>Löschen war nicht erfolgreich!</p>
 
-<?php
-include "footer.php";
-?>
+<?php include "footer.php"; ?>

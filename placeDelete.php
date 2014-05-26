@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 $pagetitle = "Löschen";
 
 include "system/php/functions.php";
@@ -19,6 +25,7 @@ if(isset($_POST['del']))
   //delete image folder
   echo $response->userId;
   removedir("img/upload/".$response->userId."/".$id."/");
+
   if($sth == 1)
   {
     header("Location: places.php");
@@ -26,15 +33,8 @@ if(isset($_POST['del']))
   }
 }
 
+
 ?>
-<!doctype html>
-<html lang="de">
-<head>
-  <meta charset="UTF-8">
-  <title>Document</title>
-</head>
-<body>
-  <p>Löschen war nicht erfolgreich!</p>
-</body>
-</html>
+
+<p>Löschen war nicht erfolgreich!</p>
 

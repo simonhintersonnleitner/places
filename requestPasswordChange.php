@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include "system/php/functions.php";
 
 
@@ -34,26 +40,26 @@ if(isset($_POST["reset"]))
 }
 
 include  "template/beginHeader.php";
+
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/login.css">
+
 <?php
 include  "template/endHeader.php";
 ?>
 
 
 <div class="container">
- <img src="img/logo_new.png">
-
-<?php if($error == ""):?>
-   <div class="alert alert-info"><small>Gib bitte deine <b>E-Mail Adresse</b> ein um dein Passwort zurückzusetzen.</small></div>
-  <?php else:?>
+  <img src="img/logo_new.png" href="login.php">
+  <?php if($error == ""):?>
+    <div class="alert alert-info"><small>Gib bitte deine <b>E-Mail Adresse</b> ein um dein Passwort zurückzusetzen.</small></div>
+    <?php else:?>
     <div class="alert alert-danger"><small><?php echo $error; ?></small></div>
-<?php endif;?>
+  <?php endif;?>
   <form class="form-signin center" role="form" action="requestPasswordChange.php" method="post">
     <input type="email" name="email" class="form-control " placeholder="Email-Adresse">
     <input type="submit" name="reset"  class="form-control input-sm" value="Senden">
   </form>
 </div>
-<?php
-include 'template/footer.php';
-?>
+
+<?php include 'template/footer.php'; ?>

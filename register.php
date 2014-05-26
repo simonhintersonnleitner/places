@@ -1,4 +1,10 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
 include 'system/php/functions.php';
 
 $pagetitle = "Meine Lieblingsorte";
@@ -32,11 +38,10 @@ if(isset($_POST["register"]))
   $error4 = checkValue($pw,4,$dbh);
   $error5 = checkValue($pw_control,5,$dbh);
     //ceck that passwords are equal
-    if($error4  == "" && $error5 == "")
-    {
-      $error5 = checkPw($pw,$pw_control);
-    }
-
+  if($error4  == "" && $error5 == "")
+  {
+    $error5 = checkPw($pw,$pw_control);
+  }
 
   if($error1 == "" && $error2 == "" && $error3 == "" && $error4 == "" && $error5 == "")
   {
@@ -61,7 +66,7 @@ if(isset($_POST["register"]))
   }
   else
   {
-      $error3 = "diese Email-Adresse ist schon registiert!";
+    $error3 = "diese Email-Adresse ist schon registiert!";
   }
 
 
@@ -69,7 +74,7 @@ if(isset($_POST["register"]))
 
 function checkEmailAvailability($emailToCheck,$dbh)
 {
- $sth = $dbh->query("SELECT count(*) as anzahl FROM user WHERE email = '{$emailToCheck}'")->fetch();
+  $sth = $dbh->query("SELECT count(*) as anzahl FROM user WHERE email = '{$emailToCheck}'")->fetch();
   if($sth->anzahl == 0)
     return true;
   return false;
@@ -79,7 +84,6 @@ function checkValue ($value,$pos,$dbh)
 {
   if($value != "")
   {
-
     if($pos != 3)
     {
       return "";
@@ -104,24 +108,26 @@ function checkValue ($value,$pos,$dbh)
 
 function checkPw($pw1,$pw2)
 {
-    if($pw1 != $pw2)
-    {
-        return "Passwörter stimmen nicht überein!";
-    }
-    return "";
+  if($pw1 != $pw2)
+  {
+    return "Passwörter stimmen nicht überein!";
+  }
+  return "";
 }
 
 include 'template/beginHeader.php';
 ?>
+
 <link rel="stylesheet" type="text/css" href="system/css/login.css">
 <script type="text/javascript" src="system/js/formValidation.js"></script>
+
 <?php
 include 'template/endHeader.php';
 ?>
 
 
 <div class="container">
-   <img src="img/logo_new.png">
+  <img src="img/logo_new.png">
   <form class="form-signin center" name="registerForm" role="form" action="register.php" method="post" onsubmit="return chkForm()">
     <h3 class="form-signin-heading">neues Konto erstellen</h3>
     <input type="text"  id="input1" name="firstname" class="form-control" placeholder="Vorname"  value="<?php echo  $firstname ?>">
@@ -136,9 +142,7 @@ include 'template/endHeader.php';
     <p><span class="error" id="5"><?php echo $error5; ?></span></p>
     <input type="submit" class="form-control input-sm" name="register" value="Registieren">
   </form>
-
 </div>
-  <?php
-include 'template/footer.php';
-?>
+
+<?php include 'template/footer.php'; ?>
 

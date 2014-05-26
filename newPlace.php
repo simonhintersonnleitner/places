@@ -1,9 +1,16 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include 'system/php/functions.php';
 checklogin();
 
 
-$pagetitle = "Meine Lieblingsorte";
+$pagetitle = "Neuer Ort";
 
 $name = "";
 $description ="";
@@ -24,7 +31,6 @@ if(isset($_POST['submit']))
   $name = $_POST['name'];
   $description = strip_tags($_POST['description'], '<br><p><b><strong><a><ul><li><ol>');
 
-
   $category = $_POST['category'];
   $latlang = $_POST['latlang'];
   $filename = basename($_FILES['file']['name']);
@@ -43,25 +49,23 @@ if(isset($_POST['submit']))
 
   if($error1 == "" && $error2 == "" && $error3 == "" && $error4 == "")
   {
-    try{
-
-
+    try
+    {
       $sth = $dbh->prepare("INSERT INTO places
         (name, description, category, coordinates, public,userId,cover)
         VALUES (?, ?, ?, ?, ?,?,?);");
       $sth->execute(array($name,$description,$category,$latlang,$public,$_SESSION['id'],basename($_FILES['file']['name'])));
 
       uploadPlaceImage($dbh->lastInsertId(),$_SESSION['id']);
-
     }
-    catch (Exception $e) {
+    catch (Exception $e)
+    {
       die("Problem with inserting Data!" . $e->getMessage() );
     }
 
-   $_SESSION['placeId'] =  $dbh->lastInsertId();
-   header("Location: crop.php");
-   exit;
-
+    $_SESSION['placeId'] =  $dbh->lastInsertId();
+    header("Location: crop.php");
+    exit;
 
   }
 }
@@ -77,7 +81,7 @@ function checkValue ($value,$pos)
     }
     else
     {
-      return  "wähle bitte einen Punkt auf der Karte";
+      return  "Wähle bitte einen Punkt auf der Karte";
     }
   }
   else
@@ -86,8 +90,16 @@ function checkValue ($value,$pos)
 
 include 'template/beginHeader.php';
 ?>
+
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
+
+
+<link rel="stylesheet" href="system/leaflet/leaflet.css" />
+<link rel="stylesheet" href="system/leaflet/Control.OSMGeocoder.css" />
+<script src="system/leaflet/leaflet.js"></script>
+<script src="system/leaflet/Control.OSMGeocoder.js"></script>
+
 <?php
 include 'template/endHeader.php';
 include 'template/menue.php';
@@ -102,73 +114,57 @@ function chkForm () {
   errorMsg1 = "wähle bitte einen Punkt auf der Karte";
   errorMsg2 = "bitte wähle ein Foto für deinen Ort aus";
 
-  //alert(document.getElementById("input4").value);
-  for (var i =  1; i < 5; i++) {
-  //reset all errors
-  document.getElementById([i]).innerHTML = "";
-  if( document.getElementById("input"+[i]).value == "")
+  for (var i =  1; i < 5; i++)
   {
-    if(i == 3)
-      document.getElementById([i]).innerHTML = errorMsg1;
-    else if( i == 4)
-      document.getElementById([i]).innerHTML = errorMsg2;
-    else
-      document.getElementById([i]).innerHTML = errorMsg;
-
-    noError = false;
-  }else{
-
-   if( i == 4)
-   {
-    var ext = document.getElementById("input"+[i]).value.split(".");
-
-    if(ext[ext.length-1].toLowerCase()  != "png" && ext[ext.length-1].toLowerCase() != "jpg")
+    //reset all errors
+    document.getElementById([i]).innerHTML = "";
+    if( document.getElementById("input"+[i]).value == "")
     {
-      document.getElementById([i]).innerHTML = "ungültige Dateiendung!";
+      if(i == 3)
+        document.getElementById([i]).innerHTML = errorMsg1;
+      else if( i == 4)
+        document.getElementById([i]).innerHTML = errorMsg2;
+      else
+        document.getElementById([i]).innerHTML = errorMsg;
+
       noError = false;
     }
-
+    else
+    {
+      if( i == 4)
+      {
+        var ext = document.getElementById("input"+[i]).value.split(".");
+        if(ext[ext.length-1].toLowerCase()  != "png" && ext[ext.length-1].toLowerCase() != "jpg")
+        {
+          document.getElementById([i]).innerHTML = "ungültige Dateiendung!";
+          noError = false;
+        }
+      }
+    }
   }
-
+  return noError;
 }
-
-}
-return noError;
-
-}
-
-
-function windowWidth () {
-  if (window.innerWidth) {
-    return window.innerWidth;
-  } else if (document.body && document.body.offsetWidth) {
-    return document.body.offsetWidth;
-  } else {
-    return 0;
-  }
-}
-
 
 
 $( document ).ready(function() {
 
-if ($( window ).width() > 600)
+  if ($( window ).width() > 600)
   {
     tinyMCE.init({
-    selector:'textarea',
-    menubar:false,
-    theme: "modern",
-    skin: 'lightgray',
-    plugins: [
-         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
-   ],
-    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
-    statusbar: false
-})
+      selector:'textarea',
+      menubar:false,
+      theme: "modern",
+      skin: 'lightgray',
+      plugins: [
+      "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+      ],
+      toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+      statusbar: false
+    })
 
   }
 
-  });
+});
 
 
 
@@ -177,20 +173,19 @@ $( window ).resize(function() {
   if ($( window ).width() > 600)
   {
     tinyMCE.init({
-    selector:'textarea',
-    menubar:false,
-    theme: "modern",
-    skin: 'lightgray',
-    plugins: [
-         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
-   ],
-    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
-    statusbar: false
-})
+      selector:'textarea',
+      menubar:false,
+      theme: "modern",
+      skin: 'lightgray',
+      plugins: [
+      "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+      ],
+      toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+      statusbar: false
+    })
   }
 
 });
-
 
 
 </script>
@@ -230,6 +225,7 @@ $( window ).resize(function() {
         </select>
       </div>
     </div>
+
     <div class="form-group">
       <label for="input3" class="col-sm-2 control-label" >Karte</label>
       <div class="col-sm-7">
@@ -248,42 +244,40 @@ $( window ).resize(function() {
      </div>
    </div>
 
-   <div class="form-group">
-    <label for="input4" class="col-sm-2 control-label" >Foto</label>
-    <div class="col-sm-7">
-      <input  name="file" type="file" id="input4" value="">
-      <span class="error-inline" id="4"><?php echo $error4; ?></span>
+    <div class="form-group">
+      <label for="input4" class="col-sm-2 control-label" >Foto</label>
+      <div class="col-sm-7">
+        <input  name="file" type="file" id="input4" value="">
+        <span class="error-inline" id="4"><?php echo $error4; ?></span>
+      </div>
     </div>
-  </div>
 
 
-  <div class="form-group">
-    <label class="col-sm-2 control-label" for="submit"></label>
-    <div class="col-sm-2">
-      <input  class="form-control" type="submit" name="submit" value="Eintragen" >
+    <div class="form-group">
+      <label class="col-sm-2 control-label" for="submit"></label>
+      <div class="col-sm-2">
+        <input  class="form-control" type="submit" name="submit" value="Eintragen" >
+      </div>
     </div>
-  </div>
 
-</form>
+  </form>
 </div>
 
 
 <script type="text/javascript">
 
 // create a map in the "map" div, set the view to a given place and zoom
-var map= L.map('map').setView([47.2715, 11.2489], 14);
+var map= L.map('map').setView([47.710, 13.350], 6);
 // add an OpenStreetMap tile layer
 map.locate({setView: true, maxZoom: 16});
 L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
   attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(map);
 
-
-
-
 var marker_set = false;
 
-function onMapClick(e) {
+function onMapClick(e)
+{
 
   if(!marker_set)
   {
@@ -292,30 +286,28 @@ function onMapClick(e) {
     marker_set = true;
 
     document.getElementById('input3').value = marker.getLatLng();
-        //set eventhanlder on marker that cooridnats will be updated when marker is moved
-        marker.on('dragend', update);
-      }
-      else
-      {
-        marker.bindPopup("Du hast bereits einen Ort markiert.<br> Du kannst mich aber einfach verschieben.").openPopup();
-      }
+    //set eventhandler on marker that cooridnats will be updated when marker is moved
+    marker.on('dragend', update);
+  }
+  else
+  {
+    marker.bindPopup("Du hast bereits einen Ort markiert.<br> Du kannst mich aber einfach verschieben.").openPopup();
+  }
 
-    }
+}
 
-    function update(e)
-    {
-     document.getElementById('input3').value = marker.getLatLng();
-   }
+function update(e)
+{
+  document.getElementById('input3').value = marker.getLatLng();
+}
 
-   map.on('click', onMapClick);
+map.on('click', onMapClick);
 
-   var osmGeocoder = new L.Control.OSMGeocoder();
+var osmGeocoder = new L.Control.OSMGeocoder();
 
-   map.addControl(osmGeocoder);
+map.addControl(osmGeocoder);
 
-   </script>
+</script>
 
 
-   <?php
-   include 'template/footer.php';
-   ?>
+<?php include 'template/footer.php'; ?>

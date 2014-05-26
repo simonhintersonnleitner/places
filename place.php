@@ -1,4 +1,11 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include 'system/php/functions.php';
 checklogin();
 
@@ -28,6 +35,13 @@ if(isset($_GET['id']))
 include 'template/beginHeader.php';
 ?>
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
+
+
+<link rel="stylesheet" href="system/leaflet/leaflet.css" />
+<link rel="stylesheet" href="system/leaflet/Control.OSMGeocoder.css" />
+<script src="system/leaflet/leaflet.js"></script>
+<script src="system/leaflet/Control.OSMGeocoder.js"></script>
+
 <?php
 include 'template/endHeader.php';
 include 'template/menue.php';
@@ -35,53 +49,54 @@ include 'template/menue.php';
 
 <div class="container">
   <div class="row">
-  <h1><?php echo $response->name;  ?> </h1><small> - eingetragen von
-  <a href='person.php?id=<?php echo $response1->id; ?>'>
+    <h1><?php echo $response->name;  ?> </h1><small> - eingetragen von
+    <a href='person.php?id=<?php echo $response1->id; ?>'>
     <?php echo $response1->firstname." ".$response1->lastname;?></a></small><br><br>
     <?php if($response1->id == $_SESSION['id'] ||  $_SESSION['isAdmin'] == 1 ): ?>
     <div class="form-inline">
-     <form action="editPlace.php" method="post" class="form-inline">
-      <input type="hidden" name="id" value='<?php echo  $response->id; ?>'>
-      <input type="submit" name="edit"  class="form-control input-sm" value="Ort bearbeiten">
-    </form>
+      <form action="editPlace.php" method="post" class="form-inline">
+        <input type="hidden" name="id" value='<?php echo  $response->id; ?>'>
+        <input type="submit" name="edit"  class="form-control input-sm" value="Ort bearbeiten">
+      </form>
     <form action="placeDelete.php" method="post" class="form-inline">
       <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
       <input type="submit" name="del"  class="form-control input-sm" value="Ort löschen">
     </form>
-     <form action="crop.php" method="post" class="form-inline">
+    <form action="crop.php" method="post" class="form-inline">
       <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
       <input type="submit" name="cropPlace"  class="form-control input-sm" value="Bildausschnitt ändern">
     </form>
- </div><br><br>
-<?php endif; ?>
-</div>
+    </div><br><br>
+    <?php endif; ?>
+  </div>
 
  <?php $class ="c".$response->category; ?>
  <?php $img = "img/icons/".$response->category.".png"; ?>
-<div class="row">
-  <div class="col-md-10">
-       <div class="<?php echo $class; ?> icon ">
+
+  <div class="row">
+    <div class="col-md-10">
+      <div class="<?php echo $class; ?> icon ">
         <img src="<?php echo $img; ?>" alt="">
       </div>
       <h5><?php echo getCategorieNameById($dbh,$response->category); ?></h5>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-11">
-    <p ><?php echo $response->description; ?></p>
+  <div class="row">
+    <div class="col-md-11">
+      <p ><?php echo $response->description; ?></p>
+    </div>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-11">
-   <img src="img/upload/<?php echo $response1->id."/". $response->id."/".$response->cover; ?>" alt="">
- </div>
- </div>
-<div class="row">
-  <div class="col-md-11">
-<div id="map"></div>
-<small>eingetragen am <?php echo $response->time; ?></small>
- </div>
-</div>
+  <div class="row">
+    <div class="col-md-11">
+      <img src="img/upload/<?php echo $response1->id."/". $response->id."/".$response->cover; ?>" alt="">
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-11">
+      <div id="map"></div>
+      <small>eingetragen am <?php echo $response->time; ?></small>
+    </div>
+  </div>
 </div>
 
 
@@ -106,16 +121,14 @@ map.addLayer(marker);
 marker.bindPopup('<?php echo $response->name;?>').openPopup();
 
 
-function onMapClick(e) {
+function onMapClick(e)
+{
   map.setView([<?php echo $coordinates; ?>], 14);
 }
 
 
 
 map.on('click', onMapClick);
-
-
-
 
 </script>
 

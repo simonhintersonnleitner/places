@@ -1,9 +1,16 @@
 <?php
+
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
+
+
 include 'system/php/functions.php';
 checklogin();
 
 
-$pagetitle = "Meine Lieblingsorte";
+$pagetitle = "Profil bearbeiten";
 
 $firstname = "";
 $lastname ="";
@@ -22,7 +29,6 @@ $error5 = "";
 //fetch acutal user date from database
 if(isset($_POST['edit']))
 {
-
   $id = $_POST['id'];
   $_SESSION['userEditId'] = $id;
   $stm = $dbh->prepare("SELECT * FROM user WHERE id = ?");
@@ -80,8 +86,8 @@ if(isset($_POST['submit']))
 
   if($error1 == "" && $error2 == ""  && $error4 =="" && $error5  == "")
   {
-   try{
-
+    try
+    {
       if( $pw_control != "") //override the old password if a new is set
       {
         //$pw = password_hash($pw, PASSWORD_DEFAULT);
@@ -90,36 +96,34 @@ if(isset($_POST['submit']))
           firstname = ?, lastname = ?, description = ?, pw = ?, cover = ?
           WHERE id = ?;");
         $sth->execute(array($firstname,$lastname,$description,$pw,$cover,$id));
-      }else{
-
-       $sth = $dbh->prepare("UPDATE user SET
-        firstname = ?, lastname = ?, description = ?,cover = ?
-        WHERE id = ?;");
-       $sth->execute(array($firstname,$lastname,$description,$cover,$id));
-     }
-
-     if($newImage)
-      {
-        uploadProfileImage($id);
-      }
-   }
-   catch (Exception $e) {
-    die("Problem with updating Data!" . $e->getMessage() );
-  }
-
-      if($newImage)
-      {
-        $_SESSION['userId'] = $id;
-        header("Location: crop.php");
       }
       else
       {
-         header("Location: person.php?id={$id}");
-         exit;
+       $sth = $dbh->prepare("UPDATE user SET firstname = ?, lastname = ?, description = ?,cover = ? WHERE id = ?;");
+       $sth->execute(array($firstname,$lastname,$description,$cover,$id));
       }
 
+      if($newImage)
+      {
+        uploadProfileImage($id);
+      }
+    }
+    catch (Exception $e)
+    {
+      die("Problem with updating Data!" . $e->getMessage() );
+    }
 
-
+    if($newImage)
+    {
+      $_SESSION['userId'] = $id;
+      header("Location: crop.php");
+      exit;
+    }
+    else
+    {
+      header("Location: person.php?id={$id}");
+      exit;
+    }
 }
 
 
@@ -146,6 +150,7 @@ function checkPw($pw1,$pw2)
 
 include 'template/beginHeader.php';
 ?>
+
 <link rel="stylesheet" type="text/css" href="system/css/index.css">
 <script src="system/tinymce/js/tinymce/tinymce.min.js" type="text/javascript"></script>
 
@@ -155,8 +160,6 @@ include 'template/menue.php';
 ?>
 
 <script type="text/javascript">
-
-
 
 function chkForm ()
 {
@@ -185,18 +188,18 @@ function chkForm ()
     for (var i =  3; i <= 4; i++)
     {
      if(document.getElementById("input"+[i]).value.length < 6)
-      {
-        document.getElementById([i]).innerHTML = errorMsg1;
-        noError = false;
-      }
-    }
-
-    if(document.getElementById("input3").value != document.getElementById("input4").value)
-    {
-      document.getElementById("4").innerHTML = "Passwörter stimmen nicht überein!";
+     {
+      document.getElementById([i]).innerHTML = errorMsg1;
       noError = false;
     }
   }
+
+  if(document.getElementById("input3").value != document.getElementById("input4").value)
+  {
+    document.getElementById("4").innerHTML = "Passwörter stimmen nicht überein!";
+    noError = false;
+  }
+}
   //check fileextension
   if(document.getElementById("input5").value != "")
   {
@@ -214,41 +217,39 @@ function chkForm ()
 
 $( document ).ready(function() {
 
-if ($( window ).width() > 600)
+  if ($( window ).width() > 600)
   {
     tinyMCE.init({
-    selector:'textarea',
-    menubar:false,
-    theme: "modern",
-    skin: 'lightgray',
-    plugins: [
-         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
-   ],
-    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
-    statusbar: false
-})
+      selector:'textarea',
+      menubar:false,
+      theme: "modern",
+      skin: 'lightgray',
+      plugins: [
+      "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+      ],
+      toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+      statusbar: false
+    })
 
   }
 
-  });
-
-
+});
 
 $( window ).resize(function() {
 
   if ($( window ).width() > 600)
   {
     tinyMCE.init({
-    selector:'textarea',
-    menubar:false,
-    theme: "modern",
-    skin: 'lightgray',
-    plugins: [
-         "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
-   ],
-    toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
-    statusbar: false
-})
+      selector:'textarea',
+      menubar:false,
+      theme: "modern",
+      skin: 'lightgray',
+      plugins: [
+      "advlist autolink link lists charmap print preview hr anchor pagebreak paste"
+      ],
+      toolbar: "bold alignleft aligncenter alignright alignjustify bullist numlist outdent indent  link preview",
+      statusbar: false
+    })
   }
 
 });

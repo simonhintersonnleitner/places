@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * @author Simon Hintersonnleitner <shintersonnleitner.mmt-b2013@fh-salzburg.ac.at>
+ * Meine Lieblingsorte ist ein MultiMediaProjekt 1 des Studiengangs MultimediaTechnology der Fachhochschule Salzburg.
+ */
 include "system/php/functions.php";
 
 if(isset($_GET['key']))

@@ -47,6 +47,7 @@ include 'template/menue.php';
     <a href="places.php?view=2" class="btn btn-default  btn-sm">Tabellenansicht</a>
    <a href="map.php" class="btn btn-default  btn-sm">Mapansicht</a>
   <?php endif;?>
+   <a href="newPlace.php" class="btn btn-default btn-sm">neuen Ort eintragen</a>
 </div>
 
 <div class="container">

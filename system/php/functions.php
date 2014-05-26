@@ -386,7 +386,7 @@ function getAllPublicPlaces($dbh)
 {
   try
   {
-    return $dbh->query("SELECT * FROM places WHERE public = 1")->fetchAll();
+    return $dbh->query("SELECT * FROM places WHERE public = 1  ORDER BY RAND();")->fetchAll();
   }
   catch (Exception $e)
   {

@@ -52,7 +52,7 @@ include 'template/menue.php';
       <input type="hidden" name="id" value='<?php echo $response->id; ?>'>
       <input type="submit" name="cropPlace"  class="form-control input-sm" value="Bildausschnitt ändern">
     </form>
-  </div><br><br>
+ </div><br><br>
 <?php endif; ?>
 </div>
 

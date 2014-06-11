@@ -19,11 +19,7 @@ $latlang = "";
 $public = "";
 $id = "";
 
-$error1 = "";
-$error2 = "";
-$error3 = "";
-$error4 = "";
-
+$error = array("","","","","","");
 
 if(isset($_POST['edit']))
 {
@@ -60,7 +56,7 @@ if(isset($_POST['submit']))
   if(basename($_FILES['file']['name']))
   {
     $cover = cleanFilename(basename($_FILES['file']['name']));
-    $error4 = checkExt($cover);
+    $error[3] = checkExt($cover);
     $newImage = true;
   }
   else
@@ -74,13 +70,13 @@ if(isset($_POST['submit']))
 
   $public = isset($_POST['public']);
 
-  $error1 = checkValue($name,1);
-  $error2 = checkValue($description,2);
-  $error3 = checkValue($latlang,3);
+  $error[0] = checkValue($name,1);
+  $error[1] = checkValue($description,2);
+  $error[2] = checkValue($latlang,3);
 
   $id = $_SESSION['placeID'];
 
-  if($error1 == "" && $error2 == "" && $error3 == "" &&  $error4 == "")
+  if($error[0] == "" && $error[1] == "" && $error[2] == "" &&  $error[3] == "")
   {
     try
     {
@@ -244,7 +240,7 @@ $( window ).resize(function() {
       <label for="input1" class="col-sm-2 control-label" >Name</label>
       <div class="col-sm-7">
         <input type="text" class="form-control" name="name" id="input1" placeholder="Name" value="<?php echo $name; ?>">
-        <span class="error-inline" id="1"><?php echo $error1; ?></span>
+        <span class="error-inline" id="1"><?php echo $error[0]; ?></span>
       </div>
     </div>
 
@@ -252,7 +248,7 @@ $( window ).resize(function() {
       <label for="input2" class="col-sm-2 control-label" >Beschreibung</label>
       <div class="col-sm-7">
         <textarea class="form-control" rows="5" name="description" id="input2" placeholder="Beschreibung"><?php echo $description; ?></textarea>
-        <span class="error-inline" id="2"><?php echo $error2; ?></span>
+        <span class="error-inline" id="2"><?php echo $error[1]; ?></span>
       </div>
     </div>
 
@@ -276,7 +272,7 @@ $( window ).resize(function() {
         <p>zum Markieren einfach in die Map klicken.</p>
       </div>
       <input type="hidden" id="input3" name="latlang">
-      <span class="error-inline" id="3"><?php echo $error3; ?></span>
+      <span class="error-inline" id="3"><?php echo $error[2]; ?></span>
     </div>
 
     <div class="form-group">
@@ -290,7 +286,7 @@ $( window ).resize(function() {
       <label for="input4" class="col-sm-2 control-label" >neues Foto</label>
       <div class="col-sm-7">
         <input  name="file" type="file" id="input4">
-        <span class="error-inline" id="4"><?php echo $error4; ?></span>
+        <span class="error-inline" id="4"><?php echo $error[3]; ?></span>
       </div>
     </div>
 

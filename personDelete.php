@@ -24,11 +24,8 @@ if(isset($_POST['del']))
       exit;
   }
 }
-include "header.php";
-
 ?>
 
 
 <p>Löschen war nicht erfolgreich!</p>
 
-<?php include "footer.php"; ?>

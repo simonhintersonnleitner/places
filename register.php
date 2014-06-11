@@ -9,11 +9,10 @@ include 'system/php/functions.php';
 
 $pagetitle = "Meine Lieblingsorte";
 
-$error1 = "";
-$error2 = "";
-$error3 = "";
-$error4 = "";
-$error5 = "";
+
+$error = array("","","","","","","");
+
+
 
 $firstname ="";
 $lastname ="";
@@ -32,18 +31,18 @@ if(isset($_POST["register"]))
   $pw_control = $_POST["pw_control"];
 
 
-  $error1 = checkValue($firstname,1,$dbh);
-  $error2 = checkValue($lastname,2,$dbh);
-  $error3 = checkValue($email,3,$dbh);
-  $error4 = checkValue($pw,4,$dbh);
-  $error5 = checkValue($pw_control,5,$dbh);
+  $error[0] = checkValue($firstname,1,$dbh);
+  $error[1] = checkValue($lastname,2,$dbh);
+  $error[2]= checkValue($email,3,$dbh);
+  $error[3] = checkValue($pw,4,$dbh);
+  $error[4] = checkValue($pw_control,5,$dbh);
     //ceck that passwords are equal
-  if($error4  == "" && $error5 == "")
+  if($error[3]  == "" && $error[4] == "")
   {
-    $error5 = checkPw($pw,$pw_control);
+    $error[4] = checkPw($pw,$pw_control);
   }
 
-  if($error1 == "" && $error2 == "" && $error3 == "" && $error4 == "" && $error5 == "")
+  if($error[0] == "" && $error[1] == "" && $error[2] == "" && $error[3] == "" && $error[4] == "")
   {
 
     $pw = $_POST['pw'];
@@ -66,7 +65,7 @@ if(isset($_POST["register"]))
   }
   else
   {
-    $error3 = "diese Email-Adresse ist schon registiert!";
+    $error[2] = "diese Email-Adresse ist schon registiert!";
   }
 
 
@@ -131,15 +130,15 @@ include 'template/endHeader.php';
   <form class="form-signin center" name="registerForm" role="form" action="register.php" method="post" onsubmit="return chkForm()">
     <h3 class="form-signin-heading">neues Konto erstellen</h3>
     <input type="text"  id="input1" name="firstname" class="form-control" placeholder="Vorname"  value="<?php echo  $firstname ?>">
-    <p><span class="error" id="1"><?php echo $error1; ?></span></p>
+    <p><span class="error" id="1"><?php echo $error[0]; ?></span></p>
     <input type="text" id="input2" name="lastname" class="form-control" placeholder="Nachname"  value="<?php echo  $lastname ?>">
-    <p><span  class="error" id="2"><?php echo $error2; ?></span></p>
+    <p><span  class="error" id="2"><?php echo $error[1]; ?></span></p>
     <input type="email" id="input3" name="email" class="form-control" placeholder="Email-Adresse" value="<?php echo  $email ?>" >
-    <p><span class="error" id="3"><?php echo $error3; ?></span></p>
+    <p><span class="error" id="3"><?php echo $error[2]; ?></span></p>
     <input type="password" id="input4" name="pw" class="form-control" placeholder="Passwort" value="<?php echo  $pw ?>">
-    <p><span class="error" id="4"><?php echo $error4; ?></span></p>
+    <p><span class="error" id="4"><?php echo $error[3]; ?></span></p>
     <input type="password" id="input5" name="pw_control" class="form-control" placeholder="Passwort wiederholen"  value="<?php echo  $pw_control ?>">
-    <p><span class="error" id="5"><?php echo $error5; ?></span></p>
+    <p><span class="error" id="5"><?php echo $error[4]; ?></span></p>
     <input type="submit" class="form-control input-sm" name="register" value="Registieren">
   </form>
 </div>

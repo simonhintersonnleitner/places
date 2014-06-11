@@ -20,11 +20,8 @@ $pw = "";
 $pw_control ="";
 $cover = "";
 
-$error1 = "";
-$error2 = "";
-$error3 = "";
-$error4 = "";
-$error5 = "";
+
+$error = array("","","","","","","");
 
 //fetch acutal user date from database
 if(isset($_POST['edit']))
@@ -60,14 +57,14 @@ if(isset($_POST['submit']))
   if($_POST['pw_control'] != "")
   {
     $pw_control = $_POST['pw_control'];
-    $error4 = checkValue($pw_control);
+    $error[3] = checkValue($pw_control);
   }
 
   //check if is an image to upload
   if(basename($_FILES['file']['name']))
   {
     $cover = basename($_FILES['file']['name']);
-    $error5 = checkExt($cover);
+    $error[4] = checkExt($cover);
     $newImage = true;
   }
   else
@@ -76,15 +73,15 @@ if(isset($_POST['submit']))
   }
   unset($_SESSION['cover']);
 
-  $error1 = checkValue($firstname);
-  $error2 = checkValue($lastname);
+  $error[0] = checkValue($firstname);
+  $error[1] = checkValue($lastname);
 
   if($error3 == "" &&  $error4 == "")
   {
     $error4 = checkPw($pw,$pw_control);
   }
 
-  if($error1 == "" && $error2 == ""  && $error4 =="" && $error5  == "")
+  if($error[0] == "" && $error[1] == ""  && $error[3] =="" && $error[4]  == "")
   {
     try
     {
@@ -267,7 +264,7 @@ $( window ).resize(function() {
       <label for="input1" class="col-sm-2 control-label" >Vorname</label>
       <div class="col-sm-7">
         <input type="text" class="form-control" name="firstname" id="input1" placeholder="Vorname" value="<?php echo $firstname; ?>">
-        <span class="error-inline" id="1"><?php echo $error1; ?></span>
+        <span class="error-inline" id="1"><?php echo $error[0]; ?></span>
       </div>
     </div>
 
@@ -276,7 +273,7 @@ $( window ).resize(function() {
       <label for="input2" class="col-sm-2 control-label" >Nachname</label>
       <div class="col-sm-7">
         <input type="text" class="form-control" name="lastname" id="input2" placeholder="Nachname" value="<?php echo $lastname; ?>">
-        <span class="error-inline" id="2"><?php echo $error2; ?></span>
+        <span class="error-inline" id="2"><?php echo $error[1]; ?></span>
       </div>
     </div>
 
@@ -298,7 +295,7 @@ $( window ).resize(function() {
       <label for="input5" class="col-sm-2 control-label" >neues Passwort</label>
       <div class="col-sm-7">
         <input type="password" class="form-control" name="pw" id="input3"  value="<?php echo $pw; ?>" placeholder="Passwort">
-        <span class="error-inline" id="3"><?php echo $error3; ?></span>
+        <span class="error-inline" id="3"><?php echo $error[2]; ?></span>
       </div>
     </div>
 
@@ -307,7 +304,7 @@ $( window ).resize(function() {
       <label for="input6" class="col-sm-2 control-label" >Passwort wiederholen</label>
       <div class="col-sm-7">
         <input type="password" class="form-control" name="pw_control" id="input4" value="<?php echo $pw_control; ?>" placeholder="Passwort wiederholen">
-        <span class="error-inline" id="4"><?php echo $error4; ?></span>
+        <span class="error-inline" id="4"><?php echo $error[3]; ?></span>
       </div>
     </div>
 
@@ -315,7 +312,7 @@ $( window ).resize(function() {
       <label for="input7" class="col-sm-2 control-label" >neues Profilfoto</label>
       <div class="col-sm-7">
         <input  name="file" type="file" id="input5">
-        <span class="error-inline" id="5"><?php echo $error5; ?></span>
+        <span class="error-inline" id="5"><?php echo $error[4]; ?></span>
       </div>
     </div>
 

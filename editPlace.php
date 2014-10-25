@@ -26,9 +26,8 @@ if(isset($_POST['edit']))
 
   $id = $_POST['id'];
   $_SESSION['placeID'] = $id;
-  $stm = $dbh->prepare("SELECT * FROM places WHERE id = ?");
-  $stm->execute(array($id));
-  $response = $stm->fetch();
+  
+  $response = getPlaceData($id,$dbh);
 
   $name = $response->name;
   $description = $response->description;

@@ -21,7 +21,7 @@ else
  $id = $_SESSION['id'];
 }
 
-$response = getUserData();
+$response = getUserData($id,$dbh);
 
 if($response == null)
 {

@@ -13,29 +13,11 @@ $pagetitle = "Meine Lieblingsorte";
 
 if(isset($_GET['userId']))
 {
-  try
-  {
-    $stm = $dbh->prepare("SELECT * FROM places WHERE userId = ?;");
-    $stm->execute(array($_GET['userId']));
-    $response = $stm->fetchAll();
-  }
-  catch (Exception $e)
-  {
-    die("Problem" . $e->getMessage() );
-  }
-
+    $response = getAllPlacesByUserID($id,$dhb);
 }
 else
 {
-  try
-  {
-    $stm = $dbh->query("SELECT * FROM places ;");
-    $response = $stm->fetchAll();
-  }
-  catch (Exception $e)
-  {
-    die("Problem with selecting Data!" . $e->getMessage() );
-  }
+    $response = getAllPublicPlaces();
 }
 
 include 'template/beginHeader.php';

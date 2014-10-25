@@ -21,9 +21,7 @@ else
  $id = $_SESSION['id'];
 }
 
-$stm = $dbh->prepare("SELECT * FROM user WHERE id = ?");
-$stm->execute(array($id));
-$response = $stm->fetch();
+$response = getUserData();
 
 if($response == null)
 {

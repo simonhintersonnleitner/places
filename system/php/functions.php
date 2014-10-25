@@ -272,6 +272,7 @@ function getCroppedPlaceImageNameById($id,$dbh)
 
 function getDateFromTimeStamp($timeStamp)
 {
+  date_default_timezone_set("Europe/Berlin");
   $value = $timeStamp;
   $datetime = new DateTime($value);
   return $datetime->format('d.m.Y');

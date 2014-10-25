@@ -13,11 +13,11 @@ $pagetitle = "Meine Lieblingsorte";
 
 if(isset($_GET['userId']))
 {
-    $response = getAllPlacesByUserID($id,$dhb);
+    $response = getAllPlacesByUserID($id,$dbh);
 }
 else
 {
-    $response = getAllPublicPlaces();
+    $response = getAllPublicPlaces($dbh);
 }
 
 include 'template/beginHeader.php';
